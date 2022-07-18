@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <h1>尚未开发敬请期待</h1>
     </div>
 </template>
 
@@ -8,6 +8,7 @@
 export default {
     setup () {
         
+
         return {}
     }
 }

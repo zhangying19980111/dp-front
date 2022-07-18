@@ -40,7 +40,17 @@ const routes = [
   {
     path:'/activity',
     name:'activity',
-    // component:() => import('@/views/main/project/test.vue')
+    component:() => import('@/views/main/activity/index.vue')
+  },
+  {
+    path:'/notice',
+    name:'notice',
+    component:() => import('@/views/main/notice/index.vue')
+  },
+  {
+    path:'/train',
+    name:'train',
+    component:() => import('@/views/main/train/index.vue')
   }
 ]
 

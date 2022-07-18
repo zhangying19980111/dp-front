@@ -1,9 +1,10 @@
 <template>
   <div class="main">
     <login-header />
-    <div>
-      <img :src="headerImage" style="width: 100%; height: 60px" />
-    </div>
+    
+    <!-- <div>
+      <img :src="headerImage" style="width: 100%; height: 60px"/>
+    </div> -->
     <nav-header></nav-header>
     <router-view class="content"></router-view>
   </div>

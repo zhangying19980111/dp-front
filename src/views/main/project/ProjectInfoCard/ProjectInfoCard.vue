@@ -7,10 +7,11 @@
         <span>发布时间</span>
       </div>
       <img
-        src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+        :src="ProjectLogo"
         class="image"
       />
-      <div style="padding: 14px">
+          <el-divider />
+      <div style="padding:0 14px">
         <span>项目名称</span>
         <div class="bottom">
           <el-button text class="button" @click="getProjectInfo">查看详情</el-button>
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+import ProjectLogo from '@/assets/img/project_logo.png'
 export default {
   components: {
   },
@@ -30,6 +32,7 @@ export default {
     }
     return {
         getProjectInfo,
+        ProjectLogo
     };
   },
 };
@@ -37,7 +40,7 @@ export default {
 
 <style lang="less" scoped>
 .info-card {
-  width: 20%;
+  width: 200px;
   .top {
     text-align: center;
     background-color: #ccc;
@@ -52,7 +55,7 @@ export default {
     .button {
       padding: 0;
       min-height: auto;
-      margin-left: 150px;
+      margin-left: 100px;
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-form label-width="120px" class="select-form">
-      <el-form-item :label="dateName" :model="form.value">
+    <el-form label-width="60px" class="select-form">
+      <el-form-item :label="dateName" :model="form.value" class="select-form-item">
         <el-date-picker
           v-model="form.date"
           type="daterange"
@@ -10,14 +10,14 @@
           style="width: 200px"
         />
       </el-form-item>
-      <el-form-item :label="idName">
+      <el-form-item :label="idName"  class="select-form-item">
         <el-input v-model="form.id" />
       </el-form-item>
 
-      <el-form-item :label="entryName">
+      <el-form-item :label="entryName"  class="select-form-item">
         <el-input v-model="form.name" />
       </el-form-item>
-      <el-form-item>
+      <el-form-item  class="select-form-item">
         <el-button type="primary" @click="onSubmit">搜索</el-button>
       </el-form-item>
     </el-form>
@@ -61,6 +61,12 @@ export default {
 <style lang="less" scoped>
 .select-form {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color:  #f4f4f5;
+  .select-form-item{
+    margin: auto;
+  }
 }
 </style>
