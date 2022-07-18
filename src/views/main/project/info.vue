@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>尚未开发，敬请期待</h1>
+        <h1>详情页</h1>
     </div>
 </template>
 
@@ -14,6 +14,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 
 </style>

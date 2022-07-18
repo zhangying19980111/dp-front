@@ -30,12 +30,16 @@ const routes = [
   {
     path:'/project',
     name:'project',
-    component:() => import('@/views/main/project/index.vue')
+    component:() => import('@/views/main/project/index.vue'),
+  },
+  {
+    path:'/project/info',
+    component:() => import('@/views/main/project/info.vue')
   },
   {
     path:'/team',
     name:'team',
-    // component:() => import('@/views/main/project/test.vue')
+    component:() => import('@/views/main/team/index.vue')
   },
   {
     path:'/activity',
