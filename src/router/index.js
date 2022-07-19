@@ -25,7 +25,7 @@ const routes = [
   {
     path: '/main',
     name: 'main',
-    component: () => import('@/components/news/src/News.vue')
+    component: () => import('@/components/table/table.vue')
   },
   {
     path: '/project',
