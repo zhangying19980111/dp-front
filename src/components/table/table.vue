@@ -1,4 +1,5 @@
 <template>
+
   <div class="content">
     <el-card>
       <el-table :data="tableData" style="width: 100%">
@@ -25,10 +26,16 @@ export default {
       // type: () => [],
       default: [
         {
-          name: '张三',
-          gender: '女',
-          education: '硕士',
-          processional: '拉二胡'
+          id: '0',
+          volunteerId: '1',
+          nickname: '8',
+          name: '2',
+          sex: '3',
+          birthday: '4',
+          phone: '5',
+          education: '6',
+          processional: '7',
+          // password:'',
         }
       ]
     }
@@ -41,7 +48,7 @@ export default {
 
 <style lang="less" scoped>
 .content {
-  width: 90%;
+  width: 95%;
   margin: auto;
   margin-top: 20px;
 }
