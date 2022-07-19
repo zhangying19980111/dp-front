@@ -4,14 +4,14 @@
       <div class="content">
         <div class="content-image">
           <img
-            src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+            :src="imgSrc"
           />
         </div>
         <div class="content-word">
           <div>
             <span class="word-label" v-for="item in contentLabel" key="item">{{
               item
-            }}</span>
+            }}:</span>
           </div>
           <div>
             <span class="word-value" v-for="item in contentValue" key="item">{{
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import ProjectLogo from "@/assets/img/project_logo.png";
 export default {
   props: {
     contentLabel: {
@@ -38,6 +39,9 @@ export default {
       type: Array,
       default: ["念坛公园", "城市服务", "青少年"],
     },
+    imgSrc:{
+      default:ProjectLogo
+    }
   },
   setup() {
     return {};
@@ -59,11 +63,12 @@ export default {
     align-items: center;
     font-size: medium;
     .word-label {
-      font-weight: 100;
+      // font-weight: 400;
       display: block;
       padding: 10px;
     }
     .word-value {
+      font-weight: 100;
       display: block;
       padding: 10px;
     }

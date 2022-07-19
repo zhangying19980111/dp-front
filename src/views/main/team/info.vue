@@ -1,12 +1,12 @@
 <template>
     <div>
-        <Content :imgSrc="ProjectLogo" :contentLabel="contentLabel"  :contentValue="contentValue"/>
+        <Content :imgSrc="TeamLogo" :contentLabel="contentLabel"  :contentValue="contentValue"/>
     </div>
 </template>
 
 <script>
 import Content from '@/components/content/src/Content.vue'
-import ProjectLogo from "@/assets/img/project_logo.png";
+import TeamLogo from "@/assets/img/team_logo.png";
 import {ref} from 'vue'
 export default {
     components:{
@@ -14,10 +14,10 @@ export default {
 
     },
     setup () {
-        const contentLabel = ref(["项目地点", "服务类别", "服务对象","起止时间","联系人", "联系人电话"])
+        const contentLabel = ref(["队伍名称", "详细地址","联系人", "联系人电话"])
         const contentValue = ref([])
         return {
-            ProjectLogo,
+            TeamLogo,
             contentLabel,
             contentValue
         }
