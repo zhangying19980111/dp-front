@@ -6,7 +6,6 @@
         <el-table-column fixed="right" label="操作" width="200">
           <template #default>
             <el-button link type="primary" size="small">通过</el-button>
-            <el-button link type="primary" size="small">补充材料</el-button>
             <el-button link type="primary" size="small">拒绝</el-button>
           </template>
         </el-table-column>

@@ -9,9 +9,7 @@
         </div>
         <div class="content-word">
           <div>
-            <span class="word-label" v-for="item in contentLabel" key="item">{{
-              item
-            }}:</span>
+            <span class="word-label" v-for="item in contentLabel" key="item">{{item}}:</span>
           </div>
           <div>
             <span class="word-value" v-for="item in contentValue" key="item">{{
@@ -19,9 +17,9 @@
             }}</span>
           </div>
         </div>
-        <solt name="contentButton" class="content-button">
+        <!-- <solt name="contentButton" class="content-button">
           <el-button type="primary">报名加入</el-button>
-        </solt>
+        </solt> -->
       </div>
     </el-card>
   </div>
@@ -54,6 +52,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50%;
   .content-image {
     padding: 20px;
   }

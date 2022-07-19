@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-menu
-      :default-active="activeIndex"
+      :default-active="$route.path"
       class="el-menu-demo nav-header"
       mode="horizontal"
       :router="true"

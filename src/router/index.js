@@ -7,59 +7,74 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => import('@/views/login/LoginForm.vue')
+    name:"login",
+    component: () => import('@/views/login/LoginForm.vue'),
+    meta:{name: "login"}
   },
   {
     path: '/register',
     children: [
       {
         path: 'volunteer',
-        component: () => import('@/views/register/VolunteerRegisterForm.vue')
+        name:"register.volunteer",
+        component: () => import('@/views/register/VolunteerRegisterForm.vue'),
+        meta:{name: "register.volunteer"}
       },
       {
         path: 'master',
-        component: () => import('@/views/register/MasterRegisterForm.vue')
+        name:"register.master",
+        component: () => import('@/views/register/MasterRegisterForm.vue'),
+        meta:{name: "register.master"}
       }
     ]
   },
   {
     path: '/main',
     name: 'main',
-    component: () => import('@/components/table/table.vue')
+    component: () => import('@/components/table/table.vue'),
+    meta:{name:"main"}
   },
   {
     path: '/project',
     name: 'project',
     component: () => import('@/views/main/project/index.vue'),
+    meta:{name:"project"}
   },
   {
     path: '/project/info',
-    component: () => import('@/views/main/project/info.vue')
+    name:"project.info",
+    component: () => import('@/views/main/project/info.vue'),
+    meta:{name:"project.info"}
   },
   {
     path: '/team',
-    name: 'teamInfo',
-    component: () => import('@/views/main/team/index.vue')
+    name: 'team',
+    component: () => import('@/views/main/team/index.vue'),
+    meta:{name:"team"}
   },
   {
     path: '/team/info',
-    name: 'team/Info',
-    component: () => import('@/views/main/team/info.vue')
+    name: 'team.info',
+    component: () => import('@/views/main/team/info.vue'),
+    meta:{name:"team.info"}
   },
   {
     path: '/activity',
     name: 'activity',
-    component: () => import('@/views/main/activity/index.vue')
+    component: () => import('@/views/main/activity/index.vue'),
+    meta:{name:'activity'}
   },
   {
     path: '/notice',
     name: 'notice',
-    component: () => import('@/views/main/notice/index.vue')
+    component: () => import('@/views/main/notice/index.vue'),
+    meta:{name:'notice'}
   },
   {
     path: '/train',
     name: 'train',
-    component: () => import('@/views/main/train/index.vue')
+    component: () => import('@/views/main/train/index.vue'),
+    meta:{name:'train'}
   },
   {
     path: '/check',
@@ -69,11 +84,15 @@ const routes = [
         children:[
           {
             path:'volTot',
-            component:() => import('@/views/check/team/VolToTeam.vue')
+            name:'check.team.volTot',
+            component:() => import('@/views/check/team/VolToTeam.vue'),
+            meta:{name:'check.team.volTot'}
           },
           {
             path:'volTop',
-            component:() => import('@/views/check/team/VolToProject.vue')
+            name:'check.team.volTop',
+            component:() => import('@/views/check/team/VolToProject.vue'),
+            meta:{name:'check.team.volTop'}
           }
         ]
       },
@@ -82,11 +101,15 @@ const routes = [
         children:[
           {
             path:'tcheck',
-            component:() => import('@/views/check/organizer/TeamCheck.vue')
+            name:'check.organizer.tcheck',
+            component:() => import('@/views/check/organizer/TeamCheck.vue'),
+            meta:{name:'check.organizer.tcheck'}
           },
           {
             path:'pcheck',
-            component:() => import('@/views/check/organizer/ProjectCheck.vue')
+            name:'check.organizer.pcheck',
+            component:() => import('@/views/check/organizer/ProjectCheck.vue'),
+            meta:{name:'check.organizer.pcheck'}
           }
         ]
       }
