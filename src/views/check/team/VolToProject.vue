@@ -29,15 +29,13 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-
     </el-form>
     <zy-table :tableConfig="VolToProject_tableConfig" tableName="志愿者入项审核" />
   </div>
 </template>
 
 <script>
-import ZyTable from "@/components/table/table.vue";
+import ZyTable from "@/components/table/Table.vue";
 import { VolToProject_tableConfig } from "./t_config";
 
 export default {
@@ -73,9 +71,6 @@ export default {
 }
 
 .select-form {
-  // display: flex;
-  // justify-content: space-between;
-  // align-items: center;
   padding: 10px;
   background-color: #f4f4f5;
   width: 93%;

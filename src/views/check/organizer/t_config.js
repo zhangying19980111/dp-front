@@ -6,10 +6,6 @@ export const teamCheck_tableConfig = [
     //   prop: 'id',
     // },
     {
-        label: '队伍ID',
-        prop: 'teamId'
-    },
-    {
         label: '队伍名称',
         prop: 'teamName'
     },
@@ -22,41 +18,16 @@ export const teamCheck_tableConfig = [
         prop: 'serverDomain'
     },
     {
-        label: '队伍区域',
-        prop: 'teamArea'
-    },
-    {
-        label: '详细地址',
-        prop: 'addressDetail'
-    },
-    {
         label: '人数',
-        prop: 'personNumber'
+        prop: 'number'
     },
     {
         label: '负责人',
         prop: 'principal'
     },
     {
-        label: '负责人手机号',
-        prop: 'principalPhone'
-    },
-    {
-        label: '联系人',
-        prop: 'linkman'
-    },
-    {
-        label: '联系人手机号',
-        prop: 'linkmanPhone'
-    },
-    // {
-    //     label: '负责人邮箱',
-    //     prop: 'principalEmail'
-    // },
-
-    {
         label: '审核状态',
-        prop: 'checkStatus'
+        prop: 'statue'
     },
 
 ]
@@ -68,12 +39,8 @@ export const ProjectCheck_tableConfig = [
     //   prop: 'id',
     // },
     {
-        label: '项目ID',
-        prop: 'projectId'
-    },
-    {
-        label: '项目地点',
-        prop: 'location'
+        label: '项目名称',
+        prop: 'projectName'
     },
     {
         label: '服务领域',
@@ -84,40 +51,15 @@ export const ProjectCheck_tableConfig = [
         prop: 'serverObject'
     },
     {
-        label: '项目日期',
-        prop: 'projectDate'
+        label: '项目开始日期',
+        prop: 'projectStartDate'
     },
     {
-        label: '服务时段',
-        prop: 'serverTime'
+        label: '项目结束日期',
+        prop: 'projectEndDate'
     },
-    {
-        label: '发布日期',
-        prop: 'publishDate'
-    },
-    {
-        label: '招募日期',
-        prop: 'recruitDate'
-    },
-    {
-        label: '结束日期',
-        prop: 'expiryDate'
-    },
-    // {
-    //     label: '目前状态',
-    //     prop: 'status'
-    // },
     {
         label: '审核状态',
-        prop: 'checkStatus'
-    },
-    {
-        label: '联系人',
-        prop: 'linkman'
-    }
-    ,
-    {
-        label: '联系人手机号',
-        prop: 'linkmanPhone'
+        prop: 'status'
     }
 ]

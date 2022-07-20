@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import imgSrc from '@/assets/img/WechatIMG159.png'
+import imgSrc from '@/assets/img/img.png'
 import Overview from '@/components/news/src/Overview.vue'
 export default {
   component:{
