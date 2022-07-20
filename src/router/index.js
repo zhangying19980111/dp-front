@@ -31,7 +31,7 @@ const routes = [
   {
     path: '/main',
     name: 'main',
-    component: () => import('@/components/table/table.vue'),
+    component: () => import('@/views/main/main/main.vue'),
     meta:{name:"main"}
   },
   {
@@ -77,6 +77,11 @@ const routes = [
     meta:{name:'train'}
   },
   {
+    path:'/check',
+    component: () => import('@/views/check/index.vue')
+  },
+  /*
+  {
     path: '/check',
     children: [
       {
@@ -114,7 +119,7 @@ const routes = [
         ]
       }
     ]
-  },
+  },*/
 ]
 
 const router = createRouter({
