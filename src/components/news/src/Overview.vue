@@ -4,7 +4,6 @@
       <el-tab-pane :label="tabName">
         <ul>
           <li><record/></li>
-          <li>2</li>
         </ul>
       </el-tab-pane>
     </el-tabs>
@@ -31,5 +30,10 @@ export default {
 <style lang="less" scoped>
 ul li::marker {
   color: #409EFF;
+}
+li{
+   padding: 2px;
+  border-bottom: solid #ccc thin;
+  // border-width:
 }
 </style>

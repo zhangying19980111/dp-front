@@ -1,6 +1,6 @@
 <template>
   <div class="record">
-    <el-link :underline="false" class="title">primary</el-link>
+    <el-link :underline="false" class="title" >primary</el-link>
     <span class="time">time</span>
   </div>
 </template>
