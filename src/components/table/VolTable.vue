@@ -1,27 +1,25 @@
 <template>
   <div>
-    <vol-form/>
-    <vol-table tableName="志愿者入项审核" />
+    <zy-table :tableConfig="VolToTeam_tableConfig" :tableName="tableName" />
   </div>
 </template>
-
 <script>
-import VolForm from '@/components/selectFrom/src/VolSelectForm.vue'
-import VolTable from "@/components/table/VolTable.vue";
-import { reactive } from "vue";
+import ZyTable from "@/components/table/Table.vue";
+import { VolToTeam_tableConfig } from "./v_config";
+
 export default {
   components: {
-    VolForm,
-    VolTable,
+    ZyTable,
+  },
+  props: {
+    tableName: {
+      type: String,
+      default: '成员审核'
+    }
   },
   setup() {
-    const form = reactive({
-      vname: '',
-      vtel: '',
-      pname: ''
-    })
     return {
-      form,
+      VolToTeam_tableConfig,
     };
   },
 };

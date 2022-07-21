@@ -1,27 +1,25 @@
 <template>
   <div>
-    <vol-form/>
-    <vol-table tableName="志愿者入项审核" />
+     <zy-table :tableConfig="ProjectCheck_tableConfig" :tableName="tableName" />
   </div>
 </template>
-
 <script>
-import VolForm from '@/components/selectFrom/src/VolSelectForm.vue'
-import VolTable from "@/components/table/VolTable.vue";
-import { reactive } from "vue";
+import ZyTable from "@/components/table/Table.vue";
+import { ProjectCheck_tableConfig } from "./p_config";
+
 export default {
   components: {
-    VolForm,
-    VolTable,
+    ZyTable,
+  },
+  props:{
+    tableName:{
+      type:String,
+      default:'项目审核'
+    }
   },
   setup() {
-    const form = reactive({
-      vname: '',
-      vtel: '',
-      pname: ''
-    })
     return {
-      form,
+      ProjectCheck_tableConfig,
     };
   },
 };
@@ -32,14 +30,12 @@ export default {
   width: 95%;
   margin: auto;
 }
-
 .select-form {
   padding: 10px;
   background-color: #f4f4f5;
   width: 93%;
   margin: auto;
   margin-top: 20px;
-
   .select-form-item {
     margin: auto;
     padding: 10px;
