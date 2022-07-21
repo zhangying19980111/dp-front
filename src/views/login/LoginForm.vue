@@ -22,16 +22,6 @@
             />
           </el-col>
         </el-form-item>
-        <el-form-item label="角色：" prop="role">
-          <el-col :span="24">
-            <el-select v-model="form.role" placeholder="请选择角色">
-              <el-option label="志愿者" value="volunteer" />
-              <el-option label="队伍" value="master" />
-              <el-option label="承办单位" value="xxx" />
-              <el-option label="服务中心" value="center" />
-            </el-select>
-          </el-col>
-        </el-form-item>
         <el-button
           type="primary"
           style="width: 300px; display: block; margin: auto"
@@ -45,15 +35,19 @@
 
 <script>
 import { reactive, ref } from "vue";
+import {login} from '@/api/login/index'
+import { uniqueId } from "lodash";
 export default {
   setup() {
     const form = reactive({
       username: "",
       password: "",
-      role: "",
     });
     const submit = () => {
-      console.log(form);
+      login({username: form.username, password: form.password}).then(res => {
+        const {uid, role, token} = JSON.parse(res.data)
+        sessionStorage.setItem('user-token', token)
+      })
     };
     const rules = reactive({
       username: [

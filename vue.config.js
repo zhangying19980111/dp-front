@@ -4,15 +4,15 @@ const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  /*
+  
   devServer:{
     proxy:{
       '/api':{
-        target:'',
+        target:'http://101.42.173.159:5651',
         pathRewrite:{'^/api':''},   
       }
     }
-  },*/
+  },
   configureWebpack:{
     plugins: [
       AutoImport({
