@@ -1,76 +1,71 @@
-/*
-import {
-  accountLoginRequest,
-  requestUserInfoById,
-  requestUserMenuByRoleId
-} from '@/service/login/login'
-import localCache from '@/utils/cache'
-import { mapMenuToRoutes, mapMenusToPermission } from '@/utils/map-menus'
+import {login, requestUserInfoById } from '@/api/login/index'
 import router from '@/router'
 const loginModule = {
   namespaced: true,
   state() {
     return {
       token: '',
-      userInfo: {},
-      userMenus: {},
-      permissions: []
+      role:'',
+      isLogin: false,
+      userInfo:{}
     }
   },
-  getters: {},
+  getters: {
+
+  },
   mutations: {
     changeToken(state, token) {
       state.token = token
     },
-    changeUserInfo(state, userInfo) {
-      state.userInfo = userInfo
+    changeRole(state, role) {
+      state.role = role
     },
-    changeUserMenu(state, userMenu) {
-      state.userMenu = userMenu
+    changeIsLogin(state, isLogin){
+      state.isLogin =isLogin
+    },
+    changeUserInfo(state, userInfo){
+      state.userInfo =userInfo
     }
   },
   actions: {
     async accountLoginAction({ commit }, payload) {
-      const loginResult = await accountLoginRequest(payload)
-      const { id, token } = loginResult.data
+      const loginResult = await login(payload)
+      const {uid, role, token} = loginResult.data
       commit('changeToken', token)
-      localCache.setCache('token', token)
-      const userInfoResult = await requestUserInfoById(id)
+      sessionStorage.setItem('token', token)
+      commit('changeRole', role)
+      sessionStorage.setItem('role', role)
+      commit('changeIsLogin', true)
+      const userInfoResult = await requestUserInfoById({role, uid})
       const userInfo = userInfoResult.data
       commit('changeUserInfo', userInfo)
-      localCache.setCache('userInfo', userInfo)
-      const userMenuResult = await requestUserMenuByRoleId(userInfo.role.id)
-      const userMenu = userMenuResult.data
-      localCache.setCache('userMenu', userMenu)
-      commit('changeUserMenu', userMenu)
+      sessionStorage.setItem('userInfo', JSON.stringify(userInfo))
       router.push('/main')
     },
-    phoneLoginAction({ commit }, payload) {
-      console.log(payload)
-    },
     loadLocalLogin({ commit }) {
-      const token = localCache.getCache('token')
+      const token = sessionStorage.getItem('token')
       if (token) {
         commit('changeToken', token)
+        commit('changeIsLogin', true)
       }
-      const userInfo = localCache.getCache('userInfo')
+      const role = sessionStorage.getItem('role')
+      if (role) {
+        commit('changeRole', role)
+      }
+      const userInfo = sessionStorage.getItem('userInfo')
       if (userInfo) {
-        commit('changeUserInfo', userInfo)
+        commit('changeUserInfo', JSON.parse(userInfo))
       }
-      const userMenu = localCache.getCache('userMenu')
-      if (userMenu) {
-        commit('changeUserMenu', userMenu)
-        // userMenus => routes
-        const routes = mapMenuToRoutes(userMenu)
-        // 将routes => routes.main.children
-        routes.forEach((route) => {
-          router.addRoute('main', route)
-        })
-        const permissions = mapMenusToPermission(userMenu)
-        state.permissions = permissions
-      }
+    },
+    Logout({commit}){
+      commit('changeToken', '')
+      sessionStorage.setItem('token', '')
+      commit('changeRole', '')
+      sessionStorage.setItem('role', '')
+      commit('changeUserInfo', {})
+      sessionStorage.setItem('userInfo', '')
+      commit('changeIsLogin', false)
     }
   }
 }
 export default loginModule
-*/

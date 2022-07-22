@@ -34,22 +34,16 @@
 </template>
 
 <script>
-import { reactive, ref } from "vue";
-import {login} from '@/api/login/index'
-import { uniqueId } from "lodash";
+import { reactive } from "vue";
+
+import {useStore} from 'vuex'
 export default {
   setup() {
+    const store = useStore()
     const form = reactive({
       username: "",
       password: "",
     });
-    const submit = () => {
-      login({username: form.username, password: form.password}).then(res => {
-        console.log(res.data)
-        const {uid, role, token} = res.data
-        sessionStorage.setItem('user-token', token)
-      })
-    };
     const rules = reactive({
       username: [
         {
@@ -73,6 +67,9 @@ export default {
         },
       ],
     });
+    const submit = () => {
+      store.dispatch('login/accountLoginAction', {username: form.username, password: form.password})
+    };
     return {
       form,
       rules,

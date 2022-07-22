@@ -6,9 +6,11 @@
 
 <script>
 import TeamTab from '@/components/tab/TeamTab.vue'
+import CenterTab from '@/components/tab/CenterTab.vue'
 export default {
   components: {
-    TeamTab
+     TeamTab,
+    CenterTab
   },
   setup() {
     return {
