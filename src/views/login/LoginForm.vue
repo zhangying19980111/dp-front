@@ -47,7 +47,6 @@ export default {
       login({username: form.username, password: form.password}).then(res => {
         console.log(res.data)
         const {uid, role, token} = res.data
-
         sessionStorage.setItem('user-token', token)
       })
     };
