@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs type="border-card">
+    <el-tabs type="border-card"  @tab-click="go">
       <el-tab-pane :label="tabName">
         <ul>
           <li><record/></li>
@@ -11,6 +11,7 @@
 </template>
 <script>
 import Record from './Record.vue'
+import { useRouter } from 'vue-router';
 export default {
     components:{
         Record
@@ -20,9 +21,18 @@ export default {
       type: String,
       default: "通知公告",
     },
+    tabPath:{
+      type:String
+    }
   },
-  setup() {
-    return {};
+  setup(props, {emit}) {
+    const router = useRouter()
+    const go = () => {
+      router.push(props.tabPath)
+    }
+    return {
+      go
+    };
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-     <zy-table :tableConfig="ProjectCheck_tableConfig" :tableName="tableName" />
+     <zy-table :tableConfig="ProjectCheck_tableConfig" :tableName="tableName" :isShow="isShow" />
   </div>
 </template>
 <script>
@@ -15,6 +15,10 @@ export default {
     tableName:{
       type:String,
       default:'项目审核'
+    },
+    isShow:{
+      type:Boolean,
+      default:true
     }
   },
   setup() {

@@ -2,12 +2,12 @@
   <div>
     <el-form :model="form" label-width="80px" class="select-form">
       <el-row>
-        <el-col :span="8">
+        <el-col :span="7">
           <el-form-item label="项目名称" prop="pname" class="select-form-item">
             <el-input v-model="form.pname" placeholder="请输入..." />
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="7">
           <el-form-item label="起止日期" prop="date" class="select-form-item">
             <el-date-picker v-model="form.date" type="daterange" start-placeholder="开始时间" end-placeholder="结束时间"
               style="width: 200px" />
@@ -28,7 +28,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <ProjectTable tableName="我的项目" />
+    <ProjectTable tableName="我的项目" :isShow="false"/>
   </div>
 </template>
 <script>

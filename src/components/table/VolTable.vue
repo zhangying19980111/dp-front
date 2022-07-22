@@ -1,6 +1,6 @@
 <template>
   <div>
-    <zy-table :tableConfig="VolToTeam_tableConfig" :tableName="tableName" />
+    <zy-table :tableConfig="VolToTeam_tableConfig" :tableName="tableName" :isShow="isShow"/>
   </div>
 </template>
 <script>
@@ -15,6 +15,10 @@ export default {
     tableName: {
       type: String,
       default: '成员审核'
+    },
+    isShow:{
+      type:Boolean,
+      default:true
     }
   },
   setup() {

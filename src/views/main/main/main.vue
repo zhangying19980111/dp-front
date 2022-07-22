@@ -5,7 +5,7 @@
         <img :src="imgSrc" style="height:100%; width:100% " />
       </el-carousel-item>
     </el-carousel>
-    <Overview class="word-content"/>
+    <Overview class="word-content" tabPath="/notice"/>
   </div>
 </template>
 

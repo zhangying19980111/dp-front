@@ -2,7 +2,7 @@
   <div>
     <el-form :model="form" label-width="80px" class="select-form">
       <el-row>
-        <el-col :span="8">
+        <el-col :span="5">
           <el-form-item label="队伍名称" prop="tname" class="select-form-item">
             <el-input v-model="form.tname" placeholder="请输入..." />
           </el-form-item>

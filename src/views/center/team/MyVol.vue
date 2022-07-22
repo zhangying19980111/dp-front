@@ -1,7 +1,7 @@
 <template>
   <div>
     <vol-form/>
-    <VolTable tableName="我的成员"/>  
+    <VolTable tableName="我的成员" :isShow="false"/>  
   </div>
 </template>
 

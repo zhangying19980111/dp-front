@@ -45,7 +45,9 @@ export default {
     });
     const submit = () => {
       login({username: form.username, password: form.password}).then(res => {
-        const {uid, role, token} = JSON.parse(res.data)
+        console.log(res.data)
+        const {uid, role, token} = res.data
+
         sessionStorage.setItem('user-token', token)
       })
     };
