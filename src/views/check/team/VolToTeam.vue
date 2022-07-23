@@ -82,6 +82,7 @@ export default {
     const handleContent = async (id) => {
       const res = await getVolToTeamOneData({id})
       const volToTeamOneData = res.data
+      volToTeamOneData
       console.log(volToTeamOneData)
       // contentVisible.value = true
     }

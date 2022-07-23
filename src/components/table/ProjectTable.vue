@@ -1,6 +1,6 @@
 <template>
   <div>
-     <zy-table :tableConfig="ProjectCheck_tableConfig" :tableName="tableName" :isShow="isShow" />
+     <zy-table :tableConfig="ProjectCheck_tableConfig" :tableName="tableName" :isShow="isShow" :tableData="tableData"/>
   </div>
 </template>
 <script>
@@ -19,6 +19,9 @@ export default {
     isShow:{
       type:Boolean,
       default:true
+    },
+    tableData:{
+      type:Array
     }
   },
   setup() {

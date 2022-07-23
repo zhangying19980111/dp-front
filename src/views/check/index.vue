@@ -1,7 +1,7 @@
 <template>
   <div>
     <team-tab v-if="role === 'master'" />
-    <center-tab v-if="role === 'center'" />
+    <center-tab v-if="role === 'admin'" />
   </div>
 </template>
 
