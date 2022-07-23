@@ -53,10 +53,18 @@ export default {
         value: 3
       }
     ]
+    const handleQuery = () => {
+
+    }
+    const resetQuery = () => {
+      form.tname = "";
+    };
     return {
       form,
       options,
       teamCheck_tableConfig,
+      handleQuery,
+      resetQuery
     };
   },
 };

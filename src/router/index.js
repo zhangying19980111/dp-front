@@ -61,15 +61,18 @@ const routes = [
   {
     path: "/activity",
     name: "activity",
-    // component: () => import("@/views/main/activity/index.vue"),
-    component: () => import("@/views/check/ActionWord.vue"),
+    component: () => import("@/views/main/activity/index.vue"),
+    // component: () => import("@/views/check/ActionWord.vue"),
     meta: { name: "activity" },
   },
   {
     path: "/notice",
     name: "notice",
     component: () => import("@/views/main/notice/index.vue"),
-    meta: { name: "notice" },
+  },
+  {
+    path:'/notic/info',
+    component: () => import("@/views/check/ActionWord.vue"),
   },
   {
     path: "/train",

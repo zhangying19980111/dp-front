@@ -3,13 +3,13 @@
     <el-card>
       <div class="content">
         <div class="content-image">
-          <img
-            :src="imgSrc"
-          />
+          <img :src="imgSrc" />
         </div>
         <div class="content-word">
           <div>
-            <span class="word-label" v-for="item in contentLabel" key="item">{{item}}:</span>
+            <span class="word-label" v-for="item in contentLabel" key="item"
+              >{{ item }}:</span
+            >
           </div>
           <div>
             <span class="word-value" v-for="item in contentValue" key="item">{{
@@ -17,19 +17,17 @@
             }}</span>
           </div>
         </div>
+        <div class="content-linkman">
+          <div>
+            <span class="word-label">联系人：</span>
+          </div>
+          <div>
+            <span class="word-value">12345678910</span>
+          </div>
+        </div>
         <!-- <solt name="contentButton" class="content-button">
           <el-button type="primary">报名加入</el-button>
         </solt> -->
-      </div>
-      <div>
-        <div>
-           <span>联系人：</span>
-           <span>张颖</span>
-        </div>
-        <div>
-           <span>联系人电话：</span>
-           <span>12345678910</span>
-        </div>
       </div>
     </el-card>
   </div>
@@ -47,9 +45,9 @@ export default {
       type: Array,
       default: ["念坛公园", "城市服务", "青少年"],
     },
-    imgSrc:{
-      default:ProjectLogo
-    }
+    imgSrc: {
+      default: ProjectLogo,
+    },
   },
   setup() {
     return {};
@@ -60,31 +58,42 @@ export default {
 <style lang="less" scoped>
 .content {
   display: flex;
-  justify-content: center;
+  // justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 100%;
   .content-image {
     padding: 20px;
+    border: solid #FAFAFA;
   }
   .content-word {
+    width: 50%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     font-size: medium;
-    .word-label {
-      // font-weight: 400;
-      display: block;
-      padding: 10px;
-    }
-    .word-value {
-      font-weight: 100;
-      display: block;
-      padding: 10px;
-    }
+    border-right: 1px solid #c0c4cc;
+  }
+  .content-linkman {
+    align-self: flex-start;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #c0c4cc;
+    border-left: 1px solid #c0c4cc;
+    border-radius: 2px;
   }
   .content-button {
     align-self: flex-end;
-    margin-left:20%
+    margin-left: 20%;
+  }
+  .word-label {
+    // font-weight: 400;
+    display: block;
+    padding: 10px;
+  }
+  .word-value {
+    display: block;
+    padding: 10px;
   }
 }
 </style>

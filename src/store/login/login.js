@@ -6,6 +6,7 @@ const loginModule = {
     return {
       token: '',
       role:'',
+      uid: '',
       isLogin: false,
       userInfo:{}
     }
@@ -19,6 +20,9 @@ const loginModule = {
     },
     changeRole(state, role) {
       state.role = role
+    },
+    changeUid(state, uid) {
+      state.uid = uid
     },
     changeIsLogin(state, isLogin){
       state.isLogin =isLogin
@@ -35,7 +39,10 @@ const loginModule = {
       sessionStorage.setItem('token', token)
       commit('changeRole', role)
       sessionStorage.setItem('role', role)
+      commit('changeUid', uid)
+      sessionStorage.setItem('uid', uid)
       commit('changeIsLogin', true)
+      
       const userInfoResult = await requestUserInfoById({role, uid})
       const userInfo = userInfoResult.data
       commit('changeUserInfo', userInfo)
@@ -52,6 +59,10 @@ const loginModule = {
       if (role) {
         commit('changeRole', role)
       }
+      const uid = sessionStorage.getItem('uid')
+      if (uid) {
+        commit('changeUid', uid)
+      }
       const userInfo = sessionStorage.getItem('userInfo')
       if (userInfo) {
         commit('changeUserInfo', JSON.parse(userInfo))
@@ -63,6 +74,8 @@ const loginModule = {
       commit('changeRole', '')
       sessionStorage.setItem('role', '')
       commit('changeUserInfo', {})
+      sessionStorage.setItem('uid', '')
+      commit('changeUid', {})
       sessionStorage.setItem('userInfo', '')
       commit('changeIsLogin', false)
     }

@@ -6,23 +6,23 @@ export const VolToTeam_tableConfig = [
     // },
     {
         label: '姓名',
-        prop: 'name'
+        prop: 'volunteer.name'
     },
     {
         label: '性别',
-        prop: 'gender'
-    },
-    {
-        label: '出生日期',
-        prop: 'birthday'
+        prop: 'volunteer.sex'
     },
     {
         label: '学历',
-        prop: 'education'
+        prop: 'volunteer.education'
     },
     {
         label: '专业特长',
-        prop: 'processional'
+        prop: 'volunteer.specialty'
+    },
+    {
+        label: '参与项目',
+        prop: 'project.projectName'
     },
     {
         label:'审核状态',

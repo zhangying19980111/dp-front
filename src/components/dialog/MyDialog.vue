@@ -7,7 +7,7 @@
       <template v-for="item in dialogData" :key="item.value">
         <el-row class="dialog-content">
           <el-col :span="12">
-            <span style="text-align: center;">{{ item.label }}:</span>
+            <span style="text-align: center">{{ item.label }}:</span>
           </el-col>
           <el-col :span="12">
             <span>{{ item.value }}</span>
@@ -29,37 +29,38 @@ export default {
   props: {
     contentVisible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: 'title'
+      default: "title",
     },
     dialogData: {
       // type: () => [],
       default: [
         {
-          label: '姓名',
-          value: '张三'
+          label: "姓名",
+          value: "张三",
         },
         {
-          label: '年龄',
-          value: '21'
-        }
-      ]
-    }
+          label: "年龄",
+          value: "21",
+        },
+      ],
+    },
   },
-  setup(props, {emit}) {
+  emits: ["closeDialog"],
+  setup(props, { emit }) {
     const handleClose = (done) => {
-      done()
-      emit('closeDialog', false)
-    }
+      done();
+      emit("closeDialog", false);
+    };
 
     return {
-      handleClose
-    }
-  }
-}
+      handleClose,
+    };
+  },
+};
 </script>
 
 <style lang="less" scoped>

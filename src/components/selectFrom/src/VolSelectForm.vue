@@ -42,8 +42,17 @@ export default {
       vname:'',
       vtel:''
     })
+    const handleQuery = () => {
+
+    }
+    const resetQuery = () => {
+      form.vname = ''
+      form.vtel = ''
+    }
     return {
-      form
+      form,
+      handleQuery,
+      resetQuery
     }
   }
 }

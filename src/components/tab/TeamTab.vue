@@ -28,6 +28,9 @@ import VolToTeam from "@/views/check/team/VolToTeam.vue";
 import MyVol from "@/views/center/team/MyVol.vue";
 import MyProject from "@/views/center/team/MyProject.vue";
 import {ref} from 'vue'
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { setupTeamStore } from '@/store/'
 export default {
   components: {
     VolToProject,
@@ -37,16 +40,22 @@ export default {
   },
   setup() {
     let selectedTab = ref(0);
+    const store = useStore();
+    const role = store.state.login.role;
+    const uid =  store.state.login.uid;
     !(function tabCache() {
+      // store.dispatch('team/accountVolToProData',{role, uid})
+      // setupTeamStore({role, uid})
       const currentTab = sessionStorage.getItem("tab");
       if (currentTab) {
         selectedTab = Number(currentTab);
       }
-    })(selectedTab);
+    })(selectedTab, role, uid);
     const handleClick = (name) => {
       selectedTab = name;
       sessionStorage.setItem("tab", name);
     };
+
     return {
       selectedTab,
       handleClick,

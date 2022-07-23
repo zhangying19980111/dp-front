@@ -1,12 +1,15 @@
 <template>
   <div class="content">
-    <Overview />
+    <overview />
   </div>
 </template>
 
 <script>
 import Overview from "@/components/news/src/Overview.vue";
 export default {
+  compontents:{
+Overview,
+  },
   setup() {
     return {};
   },

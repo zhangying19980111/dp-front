@@ -44,25 +44,34 @@ export default {
     const form = reactive({
       pname: '',
       date: '',
-      status: 1
+      status: 'aggreed'
     })
     const options = [
       {
         label: '已通过',
-        value: 1
+        value: 'aggreed'
       },
       {
         label: '待审核',
-        value: 2
+        value: 'unverified'
       },
       {
         label: '被拒绝',
-        value: 3
+        value: 'disagreed'
       }
     ]
+    const handleQuery = () => {
+
+    }
+    const resetQuery = () => {
+      form.pname = ''
+      form.date = ''
+    }
     return {
       form,
-      options
+      options,
+      handleQuery,
+      resetQuery
     };
   },
 };

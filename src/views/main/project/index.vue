@@ -30,7 +30,6 @@ export default {
     const router = useRouter()
     const array = ref([1, 2, 3, 4, 5, 6]);
     const toInfo = (id) => {
-      console.log(id)
       router.push('/project/info')
     };
     return {

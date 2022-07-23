@@ -14,13 +14,23 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="起止日期" prop="date" class="select-form-item">
-            <el-date-picker v-model="form.date" type="daterange" start-placeholder="开始时间" end-placeholder="结束时间"
-              style="width: 200px" />
+            <el-date-picker
+              v-model="form.date"
+              type="daterange"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
+              style="width: 200px"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="select-form-item">
-            <el-button type="primary" @click="handleQuery" style="margin-left: 10px">搜索</el-button>
+            <el-button
+              type="primary"
+              @click="handleQuery"
+              style="margin-left: 10px"
+              >搜索</el-button
+            >
             <el-button @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-col>
@@ -39,12 +49,20 @@ export default {
   },
   setup() {
     const form = reactive({
-      pname: '',
-      domain: '',
-      date: '',
-    })
+      pname: "",
+      domain: "",
+      date: "",
+    });
+    const handleQuery = () => {};
+    const resetQuery = () => {
+      form.pname = "";
+      form.domain = "";
+      form.date = "";
+    };
     return {
-      form
+      form,
+      handleQuery,
+      resetQuery
     };
   },
 };

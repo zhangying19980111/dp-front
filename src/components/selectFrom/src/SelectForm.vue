@@ -40,7 +40,6 @@ export default {
       name: "",
     });
     const onSubmit = () => {
-      console.log(form.value)
     };
     return {
       form,
