@@ -1,90 +1,71 @@
 <template>
   <div>
-    <h1 style="text-align: center">承办单位审核项目</h1>
-  </div>
-  <el-card class="content" >
-    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="true" label-width="80px">
-      <el-form-item label="项目ID" prop="projectId">
-        <el-input
-            v-model="queryParams.projectId"
-            placeholder="请输入项目ID"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="服务领域" prop="serverDomain">
-        <el-input
-            v-model="queryParams.serverDomain"
-            placeholder="请输入项目服务领域"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="项目日期" prop="projectDate">
-        <el-input
-            v-model="queryParams.projectDate"
-            placeholder="请输入项目日期"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="审核状态" prop="checkStatus">
-        <el-input
-            v-model="queryParams.checkStatus"
-            placeholder="请输入审核状态"
-            clearable
-            size="small"
-            @keyup.enter.ntive="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button size="mini" @click="resetQuery">重置</el-button>
-      </el-form-item>
+    <el-form :model="form" label-width="80px" class="select-form">
+      <el-row>
+        <el-col :span="8">
+          <el-form-item label="项目名称" prop="pname" class="select-form-item">
+            <el-input v-model="form.pname" placeholder="请输入..." />
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="服务领域" prop="domain" class="select-form-item">
+            <el-input v-model="form.domain" placeholder="请输入..." />
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="起止日期" prop="date" class="select-form-item">
+            <el-date-picker v-model="form.date" type="daterange" start-placeholder="开始时间" end-placeholder="结束时间"
+              style="width: 200px" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item class="select-form-item">
+            <el-button type="primary" @click="handleQuery" style="margin-left: 10px">搜索</el-button>
+            <el-button @click="resetQuery">重置</el-button>
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
-  </el-card>
-
-  <div>
-    <zy-table :tableConfig="ProjectCheck_tableConfig"/>
+    <project-table tableName="项目审核" />
   </div>
 </template>
 <script>
-import ZyTable from '@/components/table/table.vue'
-import {ProjectCheck_tableConfig} from './t_config'
+import ProjectTable from "@/components/table/ProjectTable.vue";
+import { reactive } from "vue";
 
 export default {
   components: {
-    ZyTable
-  },
-  data() {
-    return {
-      // 查询参数
-      queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        projectId: null,
-        serverDomain: null,
-        projectDate: null,
-        checkStatus: null,
-      },
-    }
+    ProjectTable,
   },
   setup() {
-
+    const form = reactive({
+      pname: '',
+      domain: '',
+      date: '',
+    })
     return {
-      ProjectCheck_tableConfig
-    }
-  }
-}
+      form
+    };
+  },
+};
 </script>
 
 <style lang="less" scoped>
 .content {
   width: 95%;
   margin: auto;
+}
+
+.select-form {
+  padding: 10px;
+  background-color: #f4f4f5;
+  width: 93%;
+  margin: auto;
   margin-top: 20px;
+
+  .select-form-item {
+    margin: auto;
+    padding: 10px;
+  }
 }
 </style>

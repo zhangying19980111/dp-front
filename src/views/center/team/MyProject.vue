@@ -2,13 +2,19 @@
   <div>
     <el-form :model="form" label-width="80px" class="select-form">
       <el-row>
-        <el-col :span="5">
-          <el-form-item label="队伍名称" prop="tname" class="select-form-item">
-            <el-input v-model="form.tname" placeholder="请输入..." />
+        <el-col :span="7">
+          <el-form-item label="项目名称" prop="pname" class="select-form-item">
+            <el-input v-model="form.pname" placeholder="请输入..." />
+          </el-form-item>
+        </el-col>
+        <el-col :span="7">
+          <el-form-item label="起止日期" prop="date" class="select-form-item">
+            <el-date-picker v-model="form.date" type="daterange" start-placeholder="开始时间" end-placeholder="结束时间"
+              style="width: 200px" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="项目状态" prop="status" class="select-form-item">
+          <el-form-item label="审核状态" prop="status" class="select-form-item">
             <el-select v-model="form.status" class="m-2" placeholder="请选择...">
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
@@ -22,21 +28,22 @@
         </el-col>
       </el-row>
     </el-form>
-    <zy-table :tableConfig="teamCheck_tableConfig" tableName="队伍审核" />
+    <ProjectTable tableName="我的项目" :isShow="false"/>
   </div>
 </template>
 <script>
 import ZyTable from "@/components/table/Table.vue";
-import { reactive } from "vue";
-import { teamCheck_tableConfig } from "./t_config";
-
+import ProjectTable from "@/components/table/ProjectTable.vue";
+import { reactive } from 'vue'
 export default {
   components: {
     ZyTable,
+    ProjectTable
   },
   setup() {
     const form = reactive({
-      tname: '',
+      pname: '',
+      date: '',
       status: 1
     })
     const options = [
@@ -55,8 +62,7 @@ export default {
     ]
     return {
       form,
-      options,
-      teamCheck_tableConfig,
+      options
     };
   },
 };

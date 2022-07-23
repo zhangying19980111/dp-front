@@ -1,32 +1,28 @@
 <template>
   <div>
     <vol-form/>
-    <vol-table tableName="志愿者入队审核" />
+    <VolTable tableName="我的成员" :isShow="false"/>  
   </div>
 </template>
 
 <script>
-
 import VolTable from "@/components/table/VolTable.vue";
 import VolForm from '@/components/selectFrom/src/VolSelectForm.vue'
 export default {
-  components: {
+  components:{
     VolForm,
-    VolTable,
+    VolTable
   },
-  setup() {
+  setup () {
     
+
     return {
       
-    };
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
-.content {
-  width: 95%;
-  margin: auto;
-}
 
 </style>

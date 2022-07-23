@@ -1,0 +1,74 @@
+<template>
+  <el-dialog v-model="contentVisible" width="30%" :before-close="handleClose">
+    <template #header>
+      <h2>{{ title }}</h2>
+    </template>
+    <div>
+      <template v-for="item in dialogData" :key="item.value">
+        <el-row class="dialog-content">
+          <el-col :span="12">
+            <span style="text-align: center;">{{ item.label }}:</span>
+          </el-col>
+          <el-col :span="12">
+            <span>{{ item.value }}</span>
+          </el-col>
+        </el-row>
+      </template>
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button>拒绝</el-button>
+        <el-button type="primary">通过</el-button>
+      </span>
+    </template>
+  </el-dialog>
+</template>
+
+<script>
+export default {
+  props: {
+    contentVisible: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      type: String,
+      default: 'title'
+    },
+    dialogData: {
+      // type: () => [],
+      default: [
+        {
+          label: '姓名',
+          value: '张三'
+        },
+        {
+          label: '年龄',
+          value: '21'
+        }
+      ]
+    }
+  },
+  setup(props, {emit}) {
+    const handleClose = (done) => {
+      done()
+      emit('closeDialog', false)
+    }
+
+    return {
+      handleClose
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.dialog-content {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+</style>

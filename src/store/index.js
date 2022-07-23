@@ -1,14 +1,20 @@
 import { createStore } from 'vuex'
+import login from './login/login'
 
-export default createStore({
-  state: {
+const store = createStore({
+  // namespaced: true,
+  state: () => {
+    return {}
   },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  mutations: {},
+  actions: {},
+  getters: {},
   modules: {
+    login
   }
 })
+
+export function setupStore() {
+  store.dispatch('login/loadLocalLogin')
+}
+export default store

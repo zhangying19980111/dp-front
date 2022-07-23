@@ -22,16 +22,6 @@
             />
           </el-col>
         </el-form-item>
-        <el-form-item label="角色：" prop="role">
-          <el-col :span="24">
-            <el-select v-model="form.role" placeholder="请选择角色">
-              <el-option label="志愿者" value="volunteer" />
-              <el-option label="队伍" value="master" />
-              <el-option label="承办单位" value="xxx" />
-              <el-option label="服务中心" value="center" />
-            </el-select>
-          </el-col>
-        </el-form-item>
         <el-button
           type="primary"
           style="width: 300px; display: block; margin: auto"
@@ -44,17 +34,16 @@
 </template>
 
 <script>
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
+
+import {useStore} from 'vuex'
 export default {
   setup() {
+    const store = useStore()
     const form = reactive({
       username: "",
       password: "",
-      role: "",
     });
-    const submit = () => {
-      console.log(form);
-    };
     const rules = reactive({
       username: [
         {
@@ -78,6 +67,9 @@ export default {
         },
       ],
     });
+    const submit = () => {
+      store.dispatch('login/accountLoginAction', {username: form.username, password: form.password})
+    };
     return {
       form,
       rules,
