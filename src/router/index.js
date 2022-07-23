@@ -139,6 +139,10 @@ router.beforeEach((to) => {
   if (to.path === "/check") {
     const token = sessionStorage.getItem("token");
     if (!token) {
+      ElNotification({
+        type: "warning",
+        message: "亲，请先登录",
+      });
       return "/login";
     }
   }

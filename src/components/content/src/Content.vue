@@ -21,6 +21,16 @@
           <el-button type="primary">报名加入</el-button>
         </solt> -->
       </div>
+      <div>
+        <div>
+           <span>联系人：</span>
+           <span>张颖</span>
+        </div>
+        <div>
+           <span>联系人电话：</span>
+           <span>12345678910</span>
+        </div>
+      </div>
     </el-card>
   </div>
 </template>

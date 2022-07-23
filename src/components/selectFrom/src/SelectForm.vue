@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-width="60px" class="select-form">
+    <el-form class="select-form">
       <el-form-item :label="dateName" :model="form.value" class="select-form-item">
         <el-date-picker
           v-model="form.date"
@@ -10,10 +10,6 @@
           style="width: 200px"
         />
       </el-form-item>
-      <el-form-item :label="idName"  class="select-form-item">
-        <el-input v-model="form.id" />
-      </el-form-item>
-
       <el-form-item :label="entryName"  class="select-form-item">
         <el-input v-model="form.name" />
       </el-form-item>
@@ -31,10 +27,6 @@ export default {
     dateName: {
       type: String,
       default: "时间",
-    },
-    idName: {
-      type: String,
-      default: "id",
     },
     entryName: {
       type: String,

@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <SelectForm />
+    <SelectForm dateName="团体注册日期" entryName="团体名称"/>
     <el-card>
       <template v-for="item in array" key="item">
         <InfoCard date="2022.07.10" name="团队名称" :imgSrc="TeamLogo" @getInfo="toInfo"
