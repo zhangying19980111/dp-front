@@ -27,17 +27,19 @@
 </template>
 <script>
 import ZyTable from "@/components/table/Table.vue";
-import { reactive } from "vue";
 import { teamCheck_tableConfig } from "./t_config";
-
+import {reactive, onMounted, ref, toRefs} from "vue";
+import {statusMap} from '@/utils/statusMap'
+import { getTeamData} from "@/api/check/index";
 export default {
   components: {
     ZyTable,
   },
   setup() {
+    const uid = sessionStorage.getItem("uid");
     const form = reactive({
       tname: '',
-      status: 1
+      status: 2
     })
     const options = [
       {
@@ -52,15 +54,46 @@ export default {
         label: '被拒绝',
         value: 3
       }
-    ]
+    ];
     const handleQuery = () => {
 
     }
     const resetQuery = () => {
       form.tname = "";
     };
+    const state = reactive({
+      tableData: []
+    })
+    const getData = async () => {
+      const res = await getTeamData({uid, status: "unverified"});
+      const volToProData = res.data;
+      console.log(volToProData)
+      state.tableData = volToProData.map((item) => {
+        return {
+          status: statusMap.get(item.status),
+          // status: item.status,
+          team: {
+            id: item.id,
+            leaderName: item.address,
+            leaderEmail: item.area,
+            contact: item.contact,
+            contactTelephone: item.contactTelephone,
+            leader: item.leader,
+            leaderTelephone: item.leaderTelephone,
+            name: item.name,
+            organizer: item.organizer,
+            serveField: item.serveField,
+            status: item.status,
+          },
+        };
+      });
+    }
+    onMounted(() => {
+      getData();
+    });
     return {
       form,
+      ...toRefs(state),
       options,
       teamCheck_tableConfig,
       handleQuery,

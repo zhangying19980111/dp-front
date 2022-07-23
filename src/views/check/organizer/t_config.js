@@ -1,34 +1,58 @@
 // 队伍审核：
 // 队伍id、队伍名称、负责人、负责人手机号、联系人、联系人手机号、负责人邮箱、主管单位、人数、服务领域、详细地址（哪个班、处）、队伍区域（哪个地区）、用户名、密码、审核状态、队伍logo
 export const teamCheck_tableConfig = [
-    // {
-    //   label: 'id',
-    //   prop: 'id',
-    // },
     {
-        label: '队伍名称',
-        prop: 'teamName'
+      label: 'id',
+      prop: 'team.id',
     },
     {
-        label: '主管单位',
-        prop: 'organizer'
+        label: '详细地址',
+        prop: 'team.address'
     },
     {
-        label: '服务领域',
-        prop: 'serverDomain'
+        label: '队伍区域',
+        prop: 'team.area'
     },
     {
-        label: '人数',
-        prop: 'number'
+        label: '联系人',
+        prop: 'team.contact'
+    },
+    {
+        label: '联系人手机号',
+        prop: 'team.contactTelephone'
     },
     {
         label: '负责人',
-        prop: 'principal'
+        prop: 'team.leader'
     },
     {
-        label: '审核状态',
-        prop: 'statue'
+        label: '负责人手机号',
+        prop: 'team.leaderTelephone'
     },
+    {
+        label: '队伍名称',
+        prop: 'team.name'
+    },
+    {
+        label: '主管单位',
+        prop: 'team.organizer'
+    },
+    {
+        label: '服务领域',
+        prop: 'team.serveField'
+    },
+    {
+        label: '状态',
+        prop: 'team.status'
+    },
+    // {
+    //     label: '',
+    //     prop: 'team.teamStatus'
+    // },
+    // {
+    //     label: '审核人id',
+    //     prop: 'team.uid'
+    // },
 
 ]
 
