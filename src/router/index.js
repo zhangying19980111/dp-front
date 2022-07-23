@@ -26,10 +26,13 @@ const routes = [
     path: '/main',
     name: 'main',
     // component: () => import('@/components/table/table.vue')
-    component: () => import('@/views/check/team/VolToTeam.vue')
+    // component: () => import('@/views/check/team/VolToTeam.vue')
     // component: () => import('@/views/check/team/VolToProject.vue')
     // component: () => import('@/views/check/organizer/TeamCheck.vue')
-    // component: () => import('@/views/check/organizer/ProjectCheck.vue')
+    // component: () => import('@/views/check/organizer/ProjectCheck.vue'
+    // component: () => import('@/views/check/test.vue')
+    component: () => import('@/views/check/ActionWord.vue')
+
 
 
   },
