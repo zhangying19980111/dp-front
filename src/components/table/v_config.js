@@ -21,6 +21,33 @@ export const VolToTeam_tableConfig = [
         prop: 'volunteer.specialty'
     },
     {
+        label:'审核状态',
+        prop:'status'
+    }
+]
+
+export const VolToProject_tableConfig = [
+    // {
+    //   label: 'id',
+    //   prop: 'id',
+    // },
+    {
+        label: '姓名',
+        prop: 'volunteer.name'
+    },
+    {
+        label: '性别',
+        prop: 'volunteer.sex'
+    },
+    {
+        label: '学历',
+        prop: 'volunteer.education'
+    },
+    {
+        label: '专业特长',
+        prop: 'volunteer.specialty'
+    },
+    {
         label: '参与项目',
         prop: 'project.projectName'
     },

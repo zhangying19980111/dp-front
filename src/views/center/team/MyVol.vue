@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import VolTable from "@/components/table/VolTable.vue";
+import VolTable from "@/components/table/VolToTeamTable.vue";
 import VolForm from '@/components/selectFrom/src/VolSelectForm.vue'
 export default {
   components:{

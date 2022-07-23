@@ -9,69 +9,130 @@
         </el-col>
         <el-col :span="7">
           <el-form-item label="起止日期" prop="date" class="select-form-item">
-            <el-date-picker v-model="form.date" type="daterange" start-placeholder="开始时间" end-placeholder="结束时间"
-              style="width: 200px" />
+            <el-date-picker
+              v-model="form.date"
+              type="daterange"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
+              style="width: 200px"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="审核状态" prop="status" class="select-form-item">
-            <el-select v-model="form.status" class="m-2" placeholder="请选择...">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+            <el-select
+              v-model="form.status"
+              class="m-2"
+              placeholder="请选择..."
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item class="select-form-item">
-            <el-button type="primary" @click="handleQuery" style="margin-left: 10px">搜索</el-button>
+            <el-button
+              type="primary"
+              @click="handleQuery"
+              style="margin-left: 10px"
+              >搜索</el-button
+            >
             <el-button @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
-    <ProjectTable tableName="我的项目" :isShow="false"/>
+    <ProjectTable tableName="我的项目" :isShow="false" :tableData="tableData"/>
   </div>
 </template>
 <script>
 import ZyTable from "@/components/table/Table.vue";
 import ProjectTable from "@/components/table/ProjectTable.vue";
-import { reactive } from 'vue'
+import { reactive, onMounted, ref, toRefs } from "vue";
+import { statusMap } from "@/utils/statusMap";
+import { getMyProjectData } from "@/api/check/index";
 export default {
   components: {
     ZyTable,
-    ProjectTable
+    ProjectTable,
   },
   setup() {
+    const uid = sessionStorage.getItem("uid");
+    const role = sessionStorage.getItem("role");
     const form = reactive({
-      pname: '',
-      date: '',
-      status: 'aggreed'
-    })
+      pname: "",
+      date: "",
+      status: "aggreed",
+    });
+    const state = reactive({
+      tableData: [],
+    });
     const options = [
       {
-        label: '已通过',
-        value: 'aggreed'
+        label: "已通过",
+        value: "aggreed",
       },
       {
-        label: '待审核',
-        value: 'unverified'
+        label: "待审核",
+        value: "unverified",
       },
       {
-        label: '被拒绝',
-        value: 'disagreed'
-      }
-    ]
-    const handleQuery = () => {
-
-    }
+        label: "被拒绝",
+        value: "disagreed",
+      },
+    ];
+     const getData = async () => {
+      const res = await getMyProjectData({ role, uid, status: "unverified" });
+      const myProData = res.data;
+      console.log(myProData)
+      state.tableData = myProData.map((item) => {
+        return {
+          status: statusMap.get(item.status),
+          volunteer: {
+            id: item.volunteer.id,
+            uid: item.uid,
+            name: item.volunteer.name,
+            education: item.volunteer.education,
+            email: item.volunteer.email,
+            sex: item.volunteer.sex,
+            specialty: item.volunteer.specialty,
+            telephone: item.volunteer.telephone,
+          },
+          project: {
+            id: item.project.id,
+            leaderName: item.project.leaderName,
+            leaderEmail: item.project.leaderEmail,
+            leaderTelephonem: item.project.leaderTelephonem,
+            projectLocation: item.project.projectLocation,
+            projectName: item.project.projectName,
+            serviceArea: item.project.serviceArea,
+            serviceEndDate: item.project.serviceEndDate,
+            serviceStartDate: item.project.serviceStartDate,
+            serviceTarget: item.project.serviceTarget,
+            status: item.project.status,
+          },
+        };
+      });
+    };
+    onMounted(() => {
+      getData();
+    });
+    const handleQuery = () => {};
     const resetQuery = () => {
-      form.pname = ''
-      form.date = ''
-    }
+      form.pname = "";
+      form.date = "";
+    };
     return {
+       ...toRefs(state),
       form,
       options,
       handleQuery,
-      resetQuery
+      resetQuery,
     };
   },
 };

@@ -1,15 +1,20 @@
 <template>
   <div>
     <zy-table 
-    :tableConfig="VolToTeam_tableConfig" 
+    :tableConfig="VolToProject_tableConfig" 
     :tableName="tableName" 
     :isShow="isShow"
-    :tableData="tableData"/>
+    :tableData="tableData">
+    <template #operate="scope">
+			<!-- 定义插槽用于接受其父级组件的插槽内容 -->
+			<slot name="operate" :row="scope.row"></slot> 
+		</template>
+    </zy-table>
   </div>
 </template>
 <script>
 import ZyTable from "@/components/table/Table.vue";
-import { VolToTeam_tableConfig } from "./v_config";
+import { VolToProject_tableConfig } from "./v_config";
 
 export default {
   components: {
@@ -30,7 +35,7 @@ export default {
   },
   setup(props, {emit}) {
     return {
-      VolToTeam_tableConfig,
+      VolToProject_tableConfig,
     };
   },
 };

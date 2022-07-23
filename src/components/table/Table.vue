@@ -13,10 +13,8 @@
           :label="item.label"
         />
         <el-table-column fixed="right" label="操作" width="150">
-          <template #default>
-            <el-button v-show="isShow" link type="success" size="small">通过</el-button>
-            <el-button v-show="isShow" link type="danger" size="small">拒绝</el-button>
-            <el-button link type="primary" size="small" @click="handleContent">详情</el-button>
+           <template #default="socpe">
+            <slot name="operate" :row="socpe.row"></slot>
           </template>
         </el-table-column>
       </el-table>
@@ -27,11 +25,7 @@
 
 <script>
 import {ref} from 'vue'
-import MyDialogVue from '../dialog/MyDialog.vue';
 export default {
-  components:{
-    MyDialogVue
-  },
   props: {
     tableConfig: {},
     tableName: {
@@ -60,18 +54,10 @@ export default {
       default:true
     }
   },
-  setup() {
-    const contentVisible = ref(false)
-    const handleContent = () => {
-      contentVisible.value = true
-    }
-    const changeContentVisible = (value) => {
-      contentVisible.value = value
-    }
+  setup(props, {emit}) {
+   
     return {
-      contentVisible,
-      handleContent,
-      changeContentVisible
+     
     };
   },
 };
