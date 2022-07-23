@@ -61,7 +61,8 @@ const routes = [
   {
     path: "/activity",
     name: "activity",
-    component: () => import("@/views/main/activity/index.vue"),
+    // component: () => import("@/views/main/activity/index.vue"),
+    component: () => import("@/views/check/ActionWord.vue"),
     meta: { name: "activity" },
   },
   {
