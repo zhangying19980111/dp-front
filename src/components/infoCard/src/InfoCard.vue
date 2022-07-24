@@ -7,7 +7,7 @@
       <img :src="imgSrc" class="image" />
       <el-divider />
       <div style="padding: 0 14px;">
-        <span>{{ name }}</span>
+        <span class="word">{{ name }}</span>
         <div class="bottom">
           <el-button text class="button" @click="getProjectInfo"
             >查看详情</el-button
@@ -61,6 +61,12 @@ export default {
   .image {
     width: 100%;
     display: block;
+  }
+  .word{
+    display: block; 
+    overflow:hidden;
+    text-overflow:ellipsis; 
+    white-space:nowrap
   }
   .bottom {
     margin-top: 13px;

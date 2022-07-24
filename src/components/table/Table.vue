@@ -13,17 +13,20 @@
           :label="item.label"
         />
         <el-table-column fixed="right" label="操作" width="150">
-           <template #default="socpe">
+          <template #default="socpe">
             <slot name="operate" :row="socpe.row"></slot>
           </template>
         </el-table-column>
+        <template #empty>
+          <div>暂无数据</div>
+        </template>
       </el-table>
     </el-card>
   </div>
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from "vue";
 export default {
   props: {
     tableConfig: {},
@@ -48,16 +51,13 @@ export default {
         },
       ],
     },
-    isShow:{
-      type:Boolean,
-      default:true
-    }
+    isShow: {
+      type: Boolean,
+      default: true,
+    },
   },
-  setup(props, {emit}) {
-   
-    return {
-     
-    };
+  setup(props, { emit }) {
+    return {};
   },
 };
 </script>

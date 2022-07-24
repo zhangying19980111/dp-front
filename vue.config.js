@@ -8,9 +8,8 @@ module.exports = defineConfig({
   devServer:{
     proxy:{
       '/api':{
-        // target:'http://101.42.173.159:5651',
-        target:'http://101.43.233.220:5651',
-        // target:'https://dream.cihss.net',
+        // target:'http://101.43.233.220:5651',
+        target:'https://dream.cihss.net',
         pathRewrite:{'^/api':''},   
       }
     }

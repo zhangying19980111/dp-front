@@ -6,9 +6,9 @@ const requests = axios.create({
 });
 requests.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem("user-token");
+    const token = sessionStorage.getItem("token");
     if (token) {
-      config.headers.token = token;
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -21,7 +21,7 @@ requests.interceptors.response.use(
       return res.data;
     } else {
       let message;
-      const code = res.data.code
+      const code = res.data.code;
       switch (code) {
         case 40000:
           message = "资源不在收藏列表中";
@@ -36,13 +36,13 @@ requests.interceptors.response.use(
           message = "请求资源不存在";
           break;
         case 50000:
-          message ="服务器开小差啦";
+          message = "服务器开小差啦";
           break;
         case 50004:
           message = "网络请求失败";
           break;
         default:
-          message =  res.data.message;
+          message = res.data.message;
       }
       ElNotification({
         type: "error",
@@ -52,9 +52,33 @@ requests.interceptors.response.use(
     }
   },
   (error) => {
+    let message;
+    const code = error.response.status;
+    switch (code) {
+      case 400:
+        message = "资源不在收藏列表中";
+        break;
+      case 401:
+        message = "请先登录";
+        break;
+      case 403:
+        message = "权限不足";
+        break;
+      case 404:
+        message = "请求资源不存在";
+        break;
+      case 500:
+        message = "服务器开小差啦";
+        break;
+      case 504:
+        message = "网络请求失败";
+        break;
+      default:
+        message = res.data.message;
+    }
     ElNotification({
       type: "error",
-      message: "服务关闭",
+      message: message,
     });
     return Promise.reject(error);
   }

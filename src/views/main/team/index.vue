@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <SelectForm dateName="团体注册日期" entryName="团体名称" />
+    <!-- <SelectForm dateName="团体注册日期" entryName="团体名称" /> -->
     <el-card style="padding-bottom: 30px;">
       <template v-for="item in teamData" :key="item">
         <InfoCard
@@ -30,17 +30,16 @@ export default {
   },
   setup() {
     const router = useRouter();
-    const array = ref([1, 2, 3, 4, 5, 6]);
     const state = reactive({
       teamData: [],
     });
-    const getData = async () => {
-      const res = await getAllTeams({ status: "agreed" });
+    const getData = async (status) => {
+      const res = await getAllTeams({ status });
       const teams = res.data;
       state.teamData = teams.map((item) => {
         return {
           id: item.id,
-          name: item.name,
+          name: item.name || "暂无",
           date: formatUicString(item.createTime),
           address: item.address,
           area: item.area,
@@ -59,9 +58,8 @@ export default {
       });
     };
     onMounted(() => {
-      getData();
+      getData( "agreed");
     });
-
     const toInfo = async (id) => {
       const res = await getOneTeams({ id });
       const team = res.data;
@@ -73,17 +71,17 @@ export default {
         "服务领域",
       ];
       const contentValue = [
-        team.name,
-        team.area,
-        team.address,
-        team.headcount,
-        team.serveField,
+        team.name || '暂无',
+        team.area || '暂无',
+        team.address || '暂无',
+        team.headcount || '暂无',
+        team.serveField || '暂无',
       ];
-      const linkLabel = ["联系人", "联系电话", "联系Email"];
+      const linkLabel = ["联系人", "电话", "Email"];
       const linkValue = [
-        team.contact,
-        team.contactTelephone,
-        team.contactEmail,
+        team.contact || '暂无',
+        team.contactTelephone || '暂无',
+        team.contactEmail || '暂无',
       ];
       router.push({
         name: "team.info",
@@ -91,7 +89,6 @@ export default {
       });
     };
     return {
-      array,
       TeamLogo,
       ...toRefs(state),
       toInfo,

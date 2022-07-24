@@ -22,10 +22,17 @@ export const getVolToTeamOneData = ({id}) => {
 
 
 export const getMyProjectData = ({role, uid, status}) => {
+    return requests({url:`/api/${role}/my/project/status/now/${uid}`, method: 'get', params: {status}})
+}
+export const getMyProjectOneData = ({id}) => {
+    return requests({url:`/api/public/project/one`, method: 'get', params: {id}})
+}
+
+export const getApplyData = ({role, uid, status}) => {
     return requests({url:`/api/${role}/project/status/${uid}`, method: 'get', params: {status}})
 }
-export const getMyProjectOneData = ({role, uid}) => {
-    return requests({url:`/api/${role}/project/status/${uid}`, method: 'get', params: {status}})
+export const getApplyOneData = ({id}) => {
+    return requests({url:`/api/public/project/one`, method: 'get', params: {id}})
 }
 
 export const getMyVolData = ({uid, status}) => {

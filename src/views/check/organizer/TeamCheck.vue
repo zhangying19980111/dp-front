@@ -117,10 +117,10 @@ export default {
       tableData: [],
       dialogData: [],
     })
-    const getData = async () => {
-      const res = await getTeamData({uid, status: "unverified"});
-      const teamData = res.data;
-      state.tableData = teamData.map((item) => {
+    const getData = async (status) => {
+      const res = await getTeamData({uid, status});
+      const volToProData = res.data;
+      state.tableData = volToProData.map((item) => {
         return {
           status: statusMap.get(item.status),
           // status: item.status,
@@ -141,7 +141,7 @@ export default {
       });
     }
     onMounted(() => {
-      getData();
+      getData("unverified");
     });
     const handleAction = async (id, action) => {
       try {

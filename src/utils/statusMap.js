@@ -1,5 +1,5 @@
 export const statusMap = new Map([
-  ["aggred", "已通过"],
+  ["agreed", "已通过"],
   ["unverified", "待审核"],
   ["disagreed ", "未通过"],
   ["pending", "待启动"],

@@ -1,9 +1,14 @@
 <template>
   <div>
-    <vol-form />
+    <vol-form
+      @selectEvent="handleSelectEvent"
+      @resetEvent="handleResetEvent"
+      :form="form"
+    />
     <vol-table tableName="志愿者入项审核" :tableData="tableData">
       <template #operate="scope">
         <el-button
+          v-show="scope.row.status === '待审核'"
           link
           type="success"
           size="small"
@@ -13,6 +18,7 @@
           >通过</el-button
         >
         <el-button
+          v-show="scope.row.status === '待审核'"
           link
           type="danger"
           size="small"
@@ -49,7 +55,11 @@ import VolTable from "@/components/table/VolToProjectTable.vue";
 import MyDialog from "@/components/dialog/MyDialog.vue";
 import { reactive, onMounted, ref, toRefs } from "vue";
 import { statusMap } from "@/utils/statusMap";
-import { getVolToProData, putVolToProStatus, getVolToProOneData  } from "@/api/check/index";
+import {
+  getVolToProData,
+  putVolToProStatus,
+  getVolToProOneData,
+} from "@/api/check/index";
 export default {
   components: {
     VolForm,
@@ -63,14 +73,14 @@ export default {
     const form = reactive({
       vname: "",
       vtel: "",
-      pname: "",
+      status: "unverified",
     });
     const state = reactive({
       tableData: [],
       dialogData: [],
     });
-    const getData = async () => {
-      const res = await getVolToProData({ role, uid, status: "unverified" });
+    const getData = async (status) => {
+      const res = await getVolToProData({ role, uid, status });
       const volToProData = res.data;
       state.tableData = volToProData.map((item) => {
         return {
@@ -103,7 +113,7 @@ export default {
       });
     };
     onMounted(() => {
-      getData();
+      getData("unverified");
     });
     const handleAction = async (uid, pid, action) => {
       try {
@@ -113,11 +123,11 @@ export default {
           message: "修改成功",
           type: "success",
         });
-        getData();
+        getData(form.status);
       } catch (e) {}
     };
     const handleContent = async (id) => {
-      const res = await getVolToProOneData({role, id});
+      const res = await getVolToProOneData({ role, id });
       const volToTeamOneData = res.data;
       state.dialogData = [
         {
@@ -155,6 +165,14 @@ export default {
     const changeContentVisible = (value) => {
       contentVisible.value = value;
     };
+    const handleSelectEvent = () => {
+      getData(form.status);
+    };
+    const handleResetEvent = () => {
+      form.vname = "";
+      form.vtel = "";
+      form.status = "unverified";
+    };
     return {
       form,
       contentVisible,
@@ -162,6 +180,8 @@ export default {
       handleAction,
       handleContent,
       changeContentVisible,
+      handleSelectEvent,
+      handleResetEvent,
     };
   },
 };

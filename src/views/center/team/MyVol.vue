@@ -1,6 +1,10 @@
 <template>
   <div>
-    <vol-form />
+    <!-- <vol-form
+      @selectEvent="handleSelectEvent"
+      @resetEvent="handleResetEvent"
+      :form="form"
+    /> -->
     <VolTable tableName="我的成员" :isShow="false" :tableData="tableData">
       <template #operate="scope">
         <el-button
@@ -41,8 +45,13 @@ export default {
       tableData: [],
       dialogData: [],
     });
-    const getData = async () => {
-      const res = await getMyVolData({ uid, status: "agreed" });
+    const form = reactive({
+      vname: "",
+      vtel: "",
+      status: "unverified",
+    });
+    const getData = async (status) => {
+      const res = await getMyVolData({ uid, status });
       const myVolData = res.data;
       state.tableData = myVolData.map((item) => {
         return {
@@ -56,15 +65,15 @@ export default {
             sex: item.volunteer.sex,
             specialty: item.volunteer.specialty,
             telephone: item.volunteer.telephone,
-          }
+          },
         };
       });
     };
     onMounted(() => {
-      getData();
+      getData("agreed");
     });
     const handleContent = async (id) => {
-      const res = await getVolToTeamOneData({id});
+      const res = await getVolToTeamOneData({ id });
       const volToTeamOneData = res.data;
       state.dialogData = [
         {
@@ -102,11 +111,22 @@ export default {
     const changeContentVisible = (value) => {
       contentVisible.value = value;
     };
+    const handleSelectEvent = () => {
+      getData(form.status);
+    };
+    const handleResetEvent = () => {
+      form.vname = "";
+      form.vtel = "";
+      form.status = "unverified";
+    };
     return {
+      form,
       contentVisible,
       ...toRefs(state),
       handleContent,
       changeContentVisible,
+      handleSelectEvent,
+      handleResetEvent,
     };
   },
 };
