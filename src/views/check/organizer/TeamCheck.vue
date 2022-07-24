@@ -73,7 +73,6 @@ export default {
       state.tableData = volToProData.map((item) => {
         return {
           status: statusMap.get(item.status),
-          // status: item.status,
           team: {
             id: item.id,
             leaderName: item.address,

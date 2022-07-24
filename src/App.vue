@@ -5,8 +5,6 @@
 </template>
 
 <script>
-// 2.局部注册element-plus
-
 export default {
   name: 'App'
 }

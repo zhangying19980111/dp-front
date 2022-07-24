@@ -36,7 +36,7 @@ export default {
       default: "title",
     },
     dialogData: {
-      // type: () => [],
+      type: Array,
       default: [
         {
           label: "姓名",

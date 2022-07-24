@@ -1,37 +1,37 @@
 <template>
   <div>
-    <el-tabs type="border-card"  @tab-click="go">
+    <el-tabs type="border-card" @tab-click="go">
       <el-tab-pane :label="tabName">
         <ul>
-          <li><record/></li>
+          <li><record /></li>
         </ul>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-import Record from './Record.vue'
-import { useRouter } from 'vue-router';
+import Record from "./Record.vue";
+import { useRouter } from "vue-router";
 export default {
-    components:{
-        Record
-    },
+  components: {
+    Record,
+  },
   props: {
     tabName: {
       type: String,
       default: "通知公告",
     },
-    tabPath:{
-      type:String
-    }
+    tabPath: {
+      type: String,
+    },
   },
-  setup(props, {emit}) {
-    const router = useRouter()
+  setup(props, { emit }) {
+    const router = useRouter();
     const go = () => {
-      router.push(props.tabPath)
-    }
+      router.push(props.tabPath);
+    };
     return {
-      go
+      go,
     };
   },
 };
@@ -39,11 +39,10 @@ export default {
 
 <style lang="less" scoped>
 ul li::marker {
-  color: #409EFF;
+  color: #409eff;
 }
-li{
-   padding: 2px;
+li {
+  padding: 2px;
   border-bottom: solid #ccc thin;
-  // border-width:
 }
 </style>

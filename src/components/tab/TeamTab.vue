@@ -49,8 +49,6 @@ export default {
     const role = store.state.login.role;
     const uid =  store.state.login.uid;
     !(function tabCache() {
-      // store.dispatch('team/accountVolToProData',{role, uid})
-      // setupTeamStore({role, uid})
       const currentTab = sessionStorage.getItem("tab");
       if (currentTab) {
         selectedTab = Number(currentTab);

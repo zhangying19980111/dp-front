@@ -4,7 +4,6 @@ import team from './team/team'
 import center from './center/center'
 
 const store = createStore({
-  // namespaced: true,
   state: () => {
     return {}
   },

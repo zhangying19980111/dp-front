@@ -47,7 +47,6 @@ export default {
           phone: "5",
           education: "6",
           processional: "7",
-          // password:'',
         },
       ],
     },

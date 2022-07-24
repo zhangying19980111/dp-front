@@ -8,6 +8,5 @@ import { setupStore, setupTeamStore } from './store/'
 const app = createApp(Main)
 app.use(store)
 setupStore()
-// setupTeamStore()
 app.use(router)
 app.mount('#app')

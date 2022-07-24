@@ -2,16 +2,16 @@
   <div>
     <el-form :model="form" label-width="80px" class="select-form">
       <el-row>
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <el-form-item label="项目名称" prop="pname" class="select-form-item">
             <el-input v-model="form.pname" placeholder="请输入..." />
           </el-form-item>
         </el-col>
-        <!--        <el-col :span="8">-->
-        <!--          <el-form-item label="服务领域" prop="domain" class="select-form-item">-->
-        <!--            <el-input v-model="form.domain" placeholder="请输入..." />-->
-        <!--          </el-form-item>-->
-        <!--        </el-col>-->
+        <el-col :span="8">
+          <el-form-item label="服务领域" prop="domain" class="select-form-item">
+            <el-input v-model="form.domain" placeholder="请输入..." />
+          </el-form-item>
+        </el-col> -->
         <el-col :span="8">
           <el-form-item label="项目状态" prop="status" class="select-form-item">
             <el-select
@@ -28,7 +28,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <el-form-item label="起止日期" prop="date" class="select-form-item">
             <el-date-picker
               v-model="form.date"
@@ -38,7 +38,7 @@
               style="width: 200px"
             />
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col :span="8">
           <el-form-item class="select-form-item">
             <el-button
@@ -61,6 +61,7 @@
           @click="
             handleAction(scope.row.volunteer.uid, scope.row.project.id, 'agree')
           "
+          v-show="scope.row.volunteer.status === '未审核'"
           >通过</el-button
         >
         <el-button
@@ -74,6 +75,7 @@
               'disagree'
             )
           "
+           v-show="scope.row.volunteer.status === '未审核'"
           >拒绝</el-button
         >
         <el-button link type="primary" size="small" @click="handleContent"
@@ -97,7 +99,6 @@ export default {
     const uid = sessionStorage.getItem("uid");
     const form = reactive({
       pname: "",
-      // domain: "",
       status: 2,
       date: "",
     });
@@ -118,7 +119,6 @@ export default {
     const handleQuery = () => {};
     const resetQuery = () => {
       form.pname = "";
-      // form.domain = "";
       form.status = 2;
       form.date = "";
     };
@@ -126,7 +126,7 @@ export default {
       tableData: [],
     });
     const getData = async (status) => {
-      const res = await getProData({ uid, status});
+      const res = await getProData({ uid, status });
       const volToProData = res.data;
       state.tableData = volToProData.map((item) => {
         return {
@@ -141,13 +141,13 @@ export default {
             serviceEndDate: item.serviceEndDate,
             serviceStartDate: item.serviceStartDate,
             serviceTarget: item.serviceTarget,
-            status: item.status,
+            status: statusMap.get(item.status),
           },
         };
       });
     };
     onMounted(() => {
-      getData( "unverified");
+      getData("unverified");
     });
     return {
       form,

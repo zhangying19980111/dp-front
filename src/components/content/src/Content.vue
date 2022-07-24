@@ -103,7 +103,6 @@ export default {
     margin-left: 20%;
   }
   .word-label {
-    // font-weight: 400;
     display: block;
     padding: 10px;
   }

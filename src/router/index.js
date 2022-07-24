@@ -62,7 +62,6 @@ const routes = [
     path: "/activity",
     name: "activity",
     component: () => import("@/views/main/activity/index.vue"),
-    // component: () => import("@/views/check/ActionWord.vue"),
     meta: { name: "activity" },
   },
   {
@@ -130,16 +129,8 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-// 导航守卫
 
 router.beforeEach((to) => {
-  /*
-  if (to.path !== '/login') {
-    const token = sessionStorage.getItem('token')
-    if (!token) {
-      return '/login'
-    }
-  }*/
   if (to.path === "/check") {
     const token = sessionStorage.getItem("token");
     if (!token) {

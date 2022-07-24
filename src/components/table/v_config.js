@@ -1,9 +1,5 @@
 // 队伍审核志愿者入队：志愿者id、用户名、姓名、性别、出生日期、手机号、学历、专业特长
 export const VolToTeam_tableConfig = [
-    // {
-    //   label: 'id',
-    //   prop: 'id',
-    // },
     {
         label: '姓名',
         prop: 'volunteer.name'
@@ -27,10 +23,6 @@ export const VolToTeam_tableConfig = [
 ]
 
 export const VolToProject_tableConfig = [
-    // {
-    //   label: 'id',
-    //   prop: 'id',
-    // },
     {
         label: '姓名',
         prop: 'volunteer.name'
@@ -58,10 +50,6 @@ export const VolToProject_tableConfig = [
 ]
 
 export const MyVol_tableConfig = [
-    // {
-    //   label: 'id',
-    //   prop: 'id',
-    // },
     {
         label: '姓名',
         prop: 'volunteer.name'
