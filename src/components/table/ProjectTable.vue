@@ -1,6 +1,16 @@
 <template>
   <div>
-     <zy-table :tableConfig="ProjectCheck_tableConfig" :tableName="tableName" :isShow="isShow" :tableData="tableData"/>
+    <zy-table
+      :tableConfig="ProjectCheck_tableConfig"
+      :tableName="tableName"
+      :isShow="isShow"
+      :tableData="tableData"
+    >
+      <template #operate="scope">
+        <!-- 定义插槽用于接受其父级组件的插槽内容 -->
+        <slot name="operate" :row="scope.row"></slot>
+      </template>
+    </zy-table>
   </div>
 </template>
 <script>
@@ -11,18 +21,18 @@ export default {
   components: {
     ZyTable,
   },
-  props:{
-    tableName:{
-      type:String,
-      default:'项目审核'
+  props: {
+    tableName: {
+      type: String,
+      default: "项目审核",
     },
-    isShow:{
-      type:Boolean,
-      default:true
+    isShow: {
+      type: Boolean,
+      default: true,
     },
-    tableData:{
-      type:Array
-    }
+    tableData: {
+      type: Array,
+    },
   },
   setup() {
     return {

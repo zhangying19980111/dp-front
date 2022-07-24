@@ -17,33 +17,48 @@
           @click="handleAction(scope.row.id, 'disagree')"
           >拒绝</el-button
         >
-        <el-button link type="primary" size="small" @click="handleContent(scope.row.id)"
+        <el-button
+          link
+          type="primary"
+          size="small"
+          @click="handleContent(scope.row.id)"
           >详情</el-button
         >
       </template>
     </vol-table>
   </div>
-  <my-dialog :contentVisible="contentVisible" @closeDialog="changeContentVisible"/>
+  <my-dialog
+    :contentVisible="contentVisible"
+    @closeDialog="changeContentVisible"
+    :dialogData="dialogData"
+    title="志愿者信息"
+  />
 </template>
 
 <script>
 import VolTable from "@/components/table/VolToTeamTable.vue";
 import VolForm from "@/components/selectFrom/src/VolSelectForm.vue";
-import MyDialog from '@/components/dialog/MyDialog.vue';
+import MyDialog from "@/components/dialog/MyDialog.vue";
 import { reactive, onMounted, ref, toRefs } from "vue";
 import { statusMap } from "@/utils/statusMap";
-import { getVolToTeamData, putVolToTeamStatus, getVolToTeamOneData } from "@/api/check/index";
+import {
+  getVolToTeamData,
+  putVolToTeamStatus,
+  getVolToTeamOneData,
+} from "@/api/check/index";
 export default {
   components: {
     VolForm,
     VolTable,
-    MyDialog
+    MyDialog,
   },
   setup() {
     const uid = sessionStorage.getItem("uid");
     const role = sessionStorage.getItem("role");
+    const contentVisible = ref(false);
     const state = reactive({
       tableData: [],
+      dialogData: [],
     });
     const getData = async () => {
       const res = await getVolToTeamData({ uid, status: "unverified" });
@@ -76,25 +91,55 @@ export default {
           type: "success",
         });
         getData();
-      } catch (e) {}
+      } catch (e) {
+        console.log(e)
+      }
     };
-    const contentVisible = ref(false)
     const handleContent = async (id) => {
-      const res = await getVolToTeamOneData({id})
-      const volToTeamOneData = res.data
-      volToTeamOneData
-      console.log(volToTeamOneData)
-      // contentVisible.value = true
-    }
+      const res = await getVolToTeamOneData({ id });
+      const volToTeamOneData = res.data;
+      state.dialogData = [
+        {
+          label: "姓名",
+          value: volToTeamOneData.volunteer.name,
+        },
+        {
+          label: "性别",
+          value: volToTeamOneData.volunteer.sex,
+        },
+        {
+          label: "出生日期",
+          value: volToTeamOneData.volunteer.birthDate,
+        },
+        {
+          label: "电子邮箱",
+          value: volToTeamOneData.volunteer.email,
+        },
+        {
+          label: "电话号码",
+          value: volToTeamOneData.volunteer.telephone,
+        },
+        {
+          label: "学历",
+          value: volToTeamOneData.volunteer.education,
+        },
+
+        {
+          label: "特长",
+          value: volToTeamOneData.volunteer.specialty,
+        },
+      ];
+      contentVisible.value = true;
+    };
     const changeContentVisible = (value) => {
-      contentVisible.value = value
-    }
+      contentVisible.value = value;
+    };
     return {
       ...toRefs(state),
       contentVisible,
       handleAction,
       handleContent,
-      changeContentVisible
+      changeContentVisible,
     };
   },
 };

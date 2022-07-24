@@ -7,22 +7,22 @@
         </div>
         <div class="content-word">
           <div>
-            <span class="word-label" v-for="item in contentLabel" key="item"
+            <span class="word-label" v-for="item in contentLabel" :key="item"
               >{{ item }}:</span
             >
           </div>
           <div>
-            <span class="word-value" v-for="item in contentValue" key="item">{{
+            <span class="word-value" v-for="item in contentValue" :key="item">{{
               item
             }}</span>
           </div>
         </div>
         <div class="content-linkman">
           <div>
-            <span class="word-label">联系人：</span>
+            <span class="word-label"  v-for="item in linkLabel" :key="item">{{ item }}:</span>
           </div>
           <div>
-            <span class="word-value">12345678910</span>
+            <span class="word-value" v-for="item in linkValue" :key="item">{{item}}</span>
           </div>
         </div>
         <!-- <solt name="contentButton" class="content-button">
@@ -39,14 +39,30 @@ export default {
   props: {
     contentLabel: {
       type: Array,
-      default: ["项目地点", "服务类别", "服务对象"],
+      default: [],
     },
     contentValue: {
       type: Array,
-      default: ["念坛公园", "城市服务", "青少年"],
+      default: [],
     },
     imgSrc: {
       default: ProjectLogo,
+    },
+    linkLabel: {
+      type: Array,
+      default: [],
+    },
+    linkValue: {
+      type: Array,
+      default: [],
+    },
+    leadLabel: {
+      type: Array,
+      default: [],
+    },
+    leadValue: {
+      type: Array,
+      default: [],
     },
   },
   setup() {
@@ -58,29 +74,29 @@ export default {
 <style lang="less" scoped>
 .content {
   display: flex;
-  // justify-content: space-around;
   align-items: center;
-  width: 100%;
+  width: 95%;
   .content-image {
     padding: 20px;
-    border: solid #FAFAFA;
+    border: solid #fafafa;
   }
   .content-word {
     width: 50%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     font-size: medium;
+    margin:10px, 10px;
     border-right: 1px solid #c0c4cc;
   }
   .content-linkman {
     align-self: flex-start;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     border-bottom: 1px solid #c0c4cc;
-    border-left: 1px solid #c0c4cc;
     border-radius: 2px;
+    width:20%;
   }
   .content-button {
     align-self: flex-end;

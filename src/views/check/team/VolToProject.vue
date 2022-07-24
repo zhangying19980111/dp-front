@@ -25,28 +25,41 @@
           "
           >拒绝</el-button
         >
-        <el-button link type="primary" size="small" @click="handleContent"
+        <el-button
+          link
+          type="primary"
+          size="small"
+          @click="handleContent(scope.row.id)"
           >详情</el-button
         >
       </template>
     </vol-table>
   </div>
+  <my-dialog
+    :contentVisible="contentVisible"
+    @closeDialog="changeContentVisible"
+    :dialogData="dialogData"
+    title="志愿者信息"
+  />
 </template>
 
 <script>
 import VolForm from "@/components/selectFrom/src/VolSelectForm.vue";
 import VolTable from "@/components/table/VolToProjectTable.vue";
+import MyDialog from "@/components/dialog/MyDialog.vue";
 import { reactive, onMounted, ref, toRefs } from "vue";
 import { statusMap } from "@/utils/statusMap";
-import { getVolToProData, putVolToProStatus } from "@/api/check/index";
+import { getVolToProData, putVolToProStatus, getVolToProOneData  } from "@/api/check/index";
 export default {
   components: {
     VolForm,
     VolTable,
+    MyDialog,
   },
   setup() {
     const uid = sessionStorage.getItem("uid");
     const role = sessionStorage.getItem("role");
+    const contentVisible = ref(false);
     const form = reactive({
       vname: "",
       vtel: "",
@@ -54,12 +67,14 @@ export default {
     });
     const state = reactive({
       tableData: [],
+      dialogData: [],
     });
     const getData = async () => {
       const res = await getVolToProData({ role, uid, status: "unverified" });
       const volToProData = res.data;
       state.tableData = volToProData.map((item) => {
         return {
+          id: item.id,
           status: statusMap.get(item.status),
           volunteer: {
             id: item.volunteer.id,
@@ -101,10 +116,52 @@ export default {
         getData();
       } catch (e) {}
     };
+    const handleContent = async (id) => {
+      const res = await getVolToProOneData({role, id});
+      const volToTeamOneData = res.data;
+      state.dialogData = [
+        {
+          label: "姓名",
+          value: volToTeamOneData.volunteer.name,
+        },
+        {
+          label: "性别",
+          value: volToTeamOneData.volunteer.sex,
+        },
+        {
+          label: "出生日期",
+          value: volToTeamOneData.volunteer.birthDate,
+        },
+        {
+          label: "电子邮箱",
+          value: volToTeamOneData.volunteer.email,
+        },
+        {
+          label: "电话号码",
+          value: volToTeamOneData.volunteer.telephone,
+        },
+        {
+          label: "学历",
+          value: volToTeamOneData.volunteer.education,
+        },
+
+        {
+          label: "特长",
+          value: volToTeamOneData.volunteer.specialty,
+        },
+      ];
+      contentVisible.value = true;
+    };
+    const changeContentVisible = (value) => {
+      contentVisible.value = value;
+    };
     return {
       form,
+      contentVisible,
       ...toRefs(state),
       handleAction,
+      handleContent,
+      changeContentVisible,
     };
   },
 };

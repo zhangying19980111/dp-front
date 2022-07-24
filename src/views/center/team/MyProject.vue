@@ -47,23 +47,56 @@
         </el-col>
       </el-row>
     </el-form>
-    <ProjectTable tableName="我的项目" :isShow="false" :tableData="tableData"/>
+    <MyProjectTable tableName="我的项目" :isShow="false" :tableData="tableData">
+      <template #operate="scope">
+        <el-button
+          link
+          type="primary"
+          size="small"
+          @click="handleContent(scope.row.id)"
+          >详情</el-button
+        >
+           <el-button
+          link
+          type="primary"
+          size="small"
+          @click="handleContent(scope.row.id)"
+          >查看我的志愿者</el-button
+        >
+      </template>
+      
+    </MyProjectTable>
   </div>
+  <my-dialog
+    :contentVisible="contentVisible"
+    @closeDialog="changeContentVisible"
+    :dialogData="dialogData"
+    title="项目信息"
+  />
+   <my-dialog
+    :contentVisible="contentVisible"
+    @closeDialog="changeContentVisible"
+    :dialogData="dialogData"
+    title="志愿者列表"
+  />
 </template>
 <script>
 import ZyTable from "@/components/table/Table.vue";
-import ProjectTable from "@/components/table/ProjectTable.vue";
+import MyProjectTable from "@/components/table/MyProjectTable.vue";
 import { reactive, onMounted, ref, toRefs } from "vue";
 import { statusMap } from "@/utils/statusMap";
 import { getMyProjectData } from "@/api/check/index";
+import { fromByteArray } from "ipaddr.js";
 export default {
   components: {
     ZyTable,
-    ProjectTable,
+    MyProjectTable,
+    MyProjectTable,
   },
   setup() {
     const uid = sessionStorage.getItem("uid");
     const role = sessionStorage.getItem("role");
+    const contentVisible = ref(false);
     const form = reactive({
       pname: "",
       date: "",
@@ -71,68 +104,136 @@ export default {
     });
     const state = reactive({
       tableData: [],
+      dialogData: [],
     });
     const options = [
-      {
-        label: "已通过",
-        value: "aggreed",
-      },
       {
         label: "待审核",
         value: "unverified",
       },
       {
-        label: "被拒绝",
+        label: "已通过",
+        value: "aggreed",
+      },
+      {
+        label: "待启动",
+        value: "pending",
+      },
+      {
+        label: "进行中",
+        value: "ongoing",
+      },
+      {
+        label: "已结束",
+        value: "finished",
+      },
+      {
+        label: "未通过",
         value: "disagreed",
       },
     ];
-     const getData = async () => {
-      const res = await getMyProjectData({ role, uid, status: "unverified" });
+    const getData = async () => {
+      const res = await getMyProjectData({ role, uid, status: form.status });
       const myProData = res.data;
-      console.log(myProData)
+      
       state.tableData = myProData.map((item) => {
         return {
+          id: item.id,
+          projectName: item.projectName,
+          serviceArea: item.serviceArea,
+          serviceStartDate: item.serviceStartDate,
+          serviceEndDate: item.serviceEndDate,
+          serviceTarget: item.serviceTarget,
           status: statusMap.get(item.status),
-          volunteer: {
-            id: item.volunteer.id,
-            uid: item.uid,
-            name: item.volunteer.name,
-            education: item.volunteer.education,
-            email: item.volunteer.email,
-            sex: item.volunteer.sex,
-            specialty: item.volunteer.specialty,
-            telephone: item.volunteer.telephone,
-          },
-          project: {
-            id: item.project.id,
-            leaderName: item.project.leaderName,
-            leaderEmail: item.project.leaderEmail,
-            leaderTelephonem: item.project.leaderTelephonem,
-            projectLocation: item.project.projectLocation,
-            projectName: item.project.projectName,
-            serviceArea: item.project.serviceArea,
-            serviceEndDate: item.project.serviceEndDate,
-            serviceStartDate: item.project.serviceStartDate,
-            serviceTarget: item.project.serviceTarget,
-            status: item.project.status,
-          },
+          centerName: item.centerName,
+          projectLocation: item.projectLocation,
+          leaderEmail: item.leaderEmail,
+          leaderName: item.leaderName,
+          leaderTelephone: item.leaderTelephone,
+          teamId: item.teamId,
+          teamName: item.teamName,
         };
       });
     };
     onMounted(() => {
       getData();
     });
-    const handleQuery = () => {};
+    const handleContent = async (id) => {
+      const res = await getVolToProOneData(id);
+      const volToTeamOneData = res.data;
+      state.dialogData = [
+        {
+          label: "姓名",
+          value: volToTeamOneData.volunteer.name,
+        },
+        {
+          label: "性别",
+          value: volToTeamOneData.volunteer.sex,
+        },
+        {
+          label: "出生日期",
+          value: volToTeamOneData.volunteer.birthDate,
+        },
+        {
+          label: "电子邮箱",
+          value: volToTeamOneData.volunteer.email,
+        },
+        {
+          label: "电话号码",
+          value: volToTeamOneData.volunteer.telephone,
+        },
+        {
+          label: "学历",
+          value: volToTeamOneData.volunteer.education,
+        },
+
+        {
+          label: "特长",
+          value: volToTeamOneData.volunteer.specialty,
+        },
+      ];
+      contentVisible.value = true;
+    };
+    const changeContentVisible = (value) => {
+      contentVisible.value = value;
+    };
+    const handleQuery = async () => {
+      const status = form.status;
+      const res = await getMyProjectData({ role, uid, status });
+      const myProData = res.data;
+      state.tableData = myProData.map((item) => {
+        return {
+          id: item.id,
+          projectName: item.projectName,
+          serviceArea: item.serviceArea,
+          serviceStartDate: item.serviceStartDate,
+          serviceEndDate: item.serviceEndDate,
+          serviceTarget: item.serviceTarget,
+          status: statusMap.get(item.status),
+          centerName: item.centerName,
+          projectLocation: item.projectLocation,
+          leaderEmail: item.leaderEmail,
+          leaderName: item.leaderName,
+          leaderTelephone: item.leaderTelephone,
+          teamId: item.teamId,
+          teamName: item.teamName,
+        };
+      });
+    };
     const resetQuery = () => {
       form.pname = "";
       form.date = "";
+      form.status="aggreed"
     };
     return {
-       ...toRefs(state),
+      ...toRefs(state),
       form,
+      contentVisible,
       options,
       handleQuery,
       resetQuery,
+      changeContentVisible,
+      handleContent,
     };
   },
 };

@@ -20,7 +20,6 @@
       </el-table>
     </el-card>
   </div>
-  <my-dialog :contentVisible="contentVisible" @closeDialog="changeContentVisible"/>
 </template>
 
 <script>
