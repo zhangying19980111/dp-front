@@ -58,38 +58,40 @@
           link
           type="success"
           size="small"
-          @click="
-            handleAction(scope.row.volunteer.uid, scope.row.project.id, 'agree')
-          "
-          v-show="scope.row.volunteer.status === '未审核'"
+          @click="handleAction(scope.row.project.id, 'agree')"
+          v-show="scope.row.project.status === '未审核'"
           >通过</el-button
         >
         <el-button
           link
           type="danger"
           size="small"
-          @click="
-            handleAction(
-              scope.row.volunteer.uid,
-              scope.row.project.id,
-              'disagree'
-            )
-          "
-           v-show="scope.row.volunteer.status === '未审核'"
-          >拒绝</el-button
-        >
-        <el-button link type="primary" size="small" @click="handleContent"
-          >详情</el-button
-        >
+          @click="handleAction(scope.row.project.id, 'disagree')"
+          v-show="scope.row.project.status === '未审核'"
+          >拒绝
+        </el-button>
+        <el-button
+          link
+          type="primary"
+          size="small"
+          @click="handleContent(scope.row.project.id)"
+          >详情
+        </el-button>
       </template>
     </project-table>
   </div>
+  <my-dialog
+    :contentVisible="contentVisible"
+    @closeDialog="changeContentVisible"
+    :dialogData="dialogData"
+    title="项目信息"
+  />
 </template>
 <script>
 import ProjectTable from "@/components/table/ProjectTable.vue";
 import { reactive, onMounted, ref, toRefs } from "vue";
 import { statusMap } from "@/utils/statusMap";
-import { getProData } from "@/api/check/index";
+import { getProData, verifyPro, getProOneData } from "@/api/check/index";
 
 export default {
   components: {
@@ -97,38 +99,37 @@ export default {
   },
   setup() {
     const uid = sessionStorage.getItem("uid");
+    const contentVisible = ref(false);
     const form = reactive({
       pname: "",
-      status: 2,
+      status: "unverified",
       date: "",
     });
     const options = [
       {
-        label: "已通过",
-        value: 1,
+        label: "待审核",
+        value: "unverified",
       },
       {
-        label: "待审核",
-        value: 2,
+        label: "已通过",
+        value: "agreed",
       },
       {
         label: "未通过",
-        value: 3,
+        value: "disagreed",
       },
     ];
-    const handleQuery = () => {};
     const resetQuery = () => {
-      form.pname = "";
-      form.status = 2;
-      form.date = "";
+      form.status = "unverified";
     };
     const state = reactive({
       tableData: [],
+      dialogData: [],
     });
     const getData = async (status) => {
       const res = await getProData({ uid, status });
-      const volToProData = res.data;
-      state.tableData = volToProData.map((item) => {
+      const proData = res.data;
+      state.tableData = proData.map((item) => {
         return {
           project: {
             id: item.id,
@@ -146,15 +147,87 @@ export default {
         };
       });
     };
+    const handleQuery = async () => {
+      getData(form.status);
+    };
     onMounted(() => {
       getData("unverified");
     });
+    const handleAction = async (projectId, action) => {
+      try {
+        await verifyPro({ projectId, action });
+        ElMessage({
+          showClose: true,
+          message: "修改成功",
+          type: "success",
+        });
+        getData(form.status);
+      } catch (e) {}
+    };
+    const handleContent = async (id) => {
+      const res = await getProOneData({ id });
+      const proOneData = res.data;
+      state.dialogData = [
+        {
+          label: "项目名称",
+          value: proOneData.projectName,
+        },
+        {
+          label: "服务领域",
+          value: proOneData.serviceArea,
+        },
+        {
+          label: "服务对象",
+          value: proOneData.serviceTarget,
+        },
+        {
+          label: "服务地点",
+          value: proOneData.projectLocation,
+        },
+        {
+          label: "队伍ID",
+          value: proOneData.teamId,
+        },
+        {
+          label: "队伍名称",
+          value: proOneData.teamName,
+        },
+        {
+          label: "联系人",
+          value: proOneData.leaderName,
+        },
+        {
+          label: "联系人邮箱",
+          value: proOneData.leaderEmail,
+        },
+        {
+          label: "联系人电话",
+          value: proOneData.leaderTelephone,
+        },
+        {
+          label: "开始时间",
+          value: proOneData.serviceStartDate,
+        },
+        {
+          label: "结束时间",
+          value: proOneData.serviceEndDate,
+        },
+      ];
+      contentVisible.value = true;
+    };
+    const changeContentVisible = (value) => {
+      contentVisible.value = value;
+    };
     return {
       form,
       ...toRefs(state),
       options,
       handleQuery,
       resetQuery,
+      handleAction,
+      handleContent,
+      contentVisible,
+      changeContentVisible,
     };
   },
 };

@@ -47,8 +47,20 @@ export const getProData = ({uid, status}) => {
     return requests({url:`api/admin/project/application/${uid}`, method: 'get', params: {status}})
 }
 export const verifyPro = ({projectId, action}) => {
-    return requests({url:`/api/admin/project/verify`, method: 'get', params: {projectId, action}})
+    return requests({url:`/api/admin/project/verify`, method: 'put', params: {projectId, action}})
+}
+//项目详情
+export const getProOneData = ({id}) => {
+    return requests({url:`/api/public/project/one`, method: 'get', params: {id}})
 }
 export const getTeamData = ({uid, status}) => {
     return requests({url:`/api/teams`, method: 'get', params: {uid, status}})
+}
+//审核队伍
+export const verifyTeam = ({id, action}) => {
+    return requests({url:`/api/teams/${id}/verify`, method: 'put', params: { action}})
+}
+//队伍详情
+export const getTeamOneData = ({id}) => {
+    return requests({url:`/api/teams/${id}`, method: 'get',})
 }

@@ -2,7 +2,10 @@
   <div class="login-header">
     <div>
       <div v-if="isShowLogin" style="font-size: small">
-        {{ userName }}&lt{{ userEmail }}>, 欢迎登录
+        <span v-if="userEmail"
+          >{{ userName }}&lt{{ userEmail }}>, 欢迎登录</span
+        >
+        <span v-else>{{ userName }}, 欢迎登录</span>
         <el-button text style="color: #409eff" @click="toLogout"
           >退出</el-button
         >
@@ -53,8 +56,8 @@ export default {
       router.push("/login");
     };
     const toLogout = () => {
-      store.dispatch('login/Logout')
-    }
+      store.dispatch("login/Logout");
+    };
     const toRegister = (e) => {
       if (e.currentTarget.getAttributeNode("index").value === "volunteer") {
         router.push("/register/volunteer");
