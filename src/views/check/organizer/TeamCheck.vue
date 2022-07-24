@@ -47,7 +47,7 @@
           type="success"
           size="small"
           @click="handleAction(scope.row.team.id, 'agree')"
-          v-show="scope.row.team.status === '未审核'"
+          v-show="scope.row.team.status === '待审核'"
           >通过
         </el-button>
         <el-button
@@ -55,7 +55,7 @@
           type="danger"
           size="small"
           @click="handleAction(scope.row.team.id, 'disagree')"
-          v-show="scope.row.team.status === '未审核'"
+          v-show="scope.row.team.status === '待审核'"
           >拒绝
         </el-button>
         <el-button
