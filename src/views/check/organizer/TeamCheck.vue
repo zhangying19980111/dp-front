@@ -22,7 +22,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <zy-table :tableConfig="teamCheck_tableConfig" tableName="队伍审核" />
+    <zy-table :tableConfig="teamCheck_tableConfig" tableName="队伍审核" :tableData="tableData" />
   </div>
 </template>
 <script>
@@ -34,6 +34,9 @@ import { getTeamData} from "@/api/check/index";
 export default {
   components: {
     ZyTable,
+  },
+  tableData:{
+    type:Array
   },
   setup() {
     const uid = sessionStorage.getItem("uid");
