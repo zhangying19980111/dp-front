@@ -78,6 +78,7 @@ const loginModule = {
       commit('changeUid', {})
       sessionStorage.setItem('userInfo', '')
       commit('changeIsLogin', false)
+      router.push('/main')
     }
   }
 }

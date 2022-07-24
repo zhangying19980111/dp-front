@@ -51,7 +51,7 @@ export default {
         value: 2
       },
       {
-        label: '被拒绝',
+        label: '未通过',
         value: 3
       }
     ];
@@ -67,7 +67,6 @@ export default {
     const getData = async () => {
       const res = await getTeamData({uid, status: "unverified"});
       const volToProData = res.data;
-      console.log(volToProData)
       state.tableData = volToProData.map((item) => {
         return {
           status: statusMap.get(item.status),

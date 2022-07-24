@@ -6,6 +6,9 @@ export const getVolToProData = ({role, uid, status}) => {
 export const putVolToProStatus = ({role, uid, pid, action}) => {
     return requests({url:`/api/${role}/va/${pid}/applications/${uid}`, method: 'put', params: {action}})
 }
+export const getVolToProOneData = ({role, id}) => {
+    return requests({url:`/api/${role}/va/${id}`, method: 'get'})
+}
 
 export const getVolToTeamData = ({uid, status}) => {
     return requests({url:`/api/teams/${uid}/applications`, method: 'get', params: {status}})
@@ -17,9 +20,21 @@ export const getVolToTeamOneData = ({id}) => {
     return requests({url:`/api/applications/team/${id}`, method: 'get'})
 }
 
+
 export const getMyProjectData = ({role, uid, status}) => {
     return requests({url:`/api/${role}/project/status/${uid}`, method: 'get', params: {status}})
 }
+export const getMyProjectOneData = ({role, uid}) => {
+    return requests({url:`/api/${role}/project/status/${uid}`, method: 'get', params: {status}})
+}
+
+export const getMyVolData = ({uid, status}) => {
+    return requests({url:`/api/teams/${uid}/applications`, method: 'get', params: {status}})
+}
+export const getMyVolOneData = ({role, uid}) => {
+    return requests({url:`/api/${role}/project/status/${uid}`, method: 'get', params: {status}})
+}
+
 //获取项目table
 export const getProData = ({uid, status}) => {
     return requests({url:`api/admin/project/application/${uid}`, method: 'get', params: {status}})

@@ -1,12 +1,12 @@
 <template>
-  <el-dialog v-model="contentVisible" width="30%" :before-close="handleClose">
+  <el-dialog v-model="contentVisible" width="60%" :before-close="handleClose">
     <template #header>
-      <h2>{{ title }}</h2>
+      <h3 style="border-bottom: solid #CDD0D6; padding: 20px;">{{ title }}</h3>
     </template>
     <div>
       <template v-for="item in dialogData" :key="item.value">
         <el-row class="dialog-content">
-          <el-col :span="12">
+          <el-col :span="6">
             <span style="text-align: center">{{ item.label }}:</span>
           </el-col>
           <el-col :span="12">
@@ -15,12 +15,12 @@
         </el-row>
       </template>
     </div>
-    <template #footer>
+    <!-- <template #footer>
       <span class="dialog-footer">
         <el-button>拒绝</el-button>
         <el-button type="primary">通过</el-button>
       </span>
-    </template>
+    </template> -->
   </el-dialog>
 </template>
 
@@ -66,10 +66,10 @@ export default {
 <style lang="less" scoped>
 .dialog-content {
   margin: 0;
-  padding: 0;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
+  font-size: medium;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <SelectForm dateName="项目发布日期" entryName="项目名称"/>
-    <el-card>
+    <el-card style="padding-bottom: 30px;">
       <template v-for="item in array" key="item">
         <InfoCard
           date="2022.07.09"

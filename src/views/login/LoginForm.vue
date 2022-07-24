@@ -1,6 +1,12 @@
 <template>
   <div class="login">
     <el-card class="login-form">
+      <template #header>
+        <div class="card-header">
+          <el-icon><Avatar /></el-icon>
+          <span style="display: inline-block">欢迎登录</span>
+        </div>
+      </template>
       <el-form
         :model="form"
         label-width="90px"
@@ -24,7 +30,7 @@
         </el-form-item>
         <el-button
           type="primary"
-          style="width: 300px; display: block; margin: auto"
+          style="width: 270px; display: block; margin: auto"
           @click="submit"
           >登录</el-button
         >
@@ -35,11 +41,14 @@
 
 <script>
 import { reactive } from "vue";
-
-import {useStore} from 'vuex'
+import { Avatar } from "@element-plus/icons-vue";
+import { useStore } from "vuex";
 export default {
+  components: {
+    Avatar,
+  },
   setup() {
-    const store = useStore()
+    const store = useStore();
     const form = reactive({
       username: "",
       password: "",
@@ -68,7 +77,10 @@ export default {
       ],
     });
     const submit = () => {
-      store.dispatch('login/accountLoginAction', {username: form.username, password: form.password})
+      store.dispatch("login/accountLoginAction", {
+        username: form.username,
+        password: form.password,
+      });
     };
     return {
       form,
@@ -84,8 +96,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  .card-header {
+    display: flex;
+    align-items: center;
+  }
   .login-form {
     width: 400px;
+    margin-top: 100px;
   }
 }
 </style>

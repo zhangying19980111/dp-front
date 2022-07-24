@@ -56,3 +56,26 @@ export const VolToProject_tableConfig = [
         prop:'status'
     }
 ]
+
+export const MyVol_tableConfig = [
+    // {
+    //   label: 'id',
+    //   prop: 'id',
+    // },
+    {
+        label: '姓名',
+        prop: 'volunteer.name'
+    },
+    {
+        label: '性别',
+        prop: 'volunteer.sex'
+    },
+    {
+        label: '学历',
+        prop: 'volunteer.education'
+    },
+    {
+        label: '专业特长',
+        prop: 'volunteer.specialty'
+    },
+]

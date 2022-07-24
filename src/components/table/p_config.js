@@ -62,3 +62,35 @@ export const ProjectCheck_tableConfig = [
     //     prop: 'project.uidTeamMaster'
     // }
 ]
+export const MyProject_tableConfig = [
+    {
+        label: '项目名称',
+        prop: 'projectName'
+    },
+    {
+        label: '服务领域',
+        prop: 'serviceArea'
+    },
+    
+    {
+        label: '服务对象',
+        prop: 'serviceTarget'
+    },
+    {
+        label: '项目地点',
+        prop: 'projectLocation'
+    },
+    {
+        label: '开始时间',
+        prop: 'serviceStartDate'
+    },
+   
+    {
+        label: '结束时间',
+        prop: 'serviceEndDate'
+    },
+    {
+        label: '审核状态',
+        prop: 'status'
+    },
+]

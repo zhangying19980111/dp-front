@@ -6,7 +6,7 @@
       </div>
       <img :src="imgSrc" class="image" />
       <el-divider />
-      <div style="padding: 0 14px">
+      <div style="padding: 0 14px;">
         <span>{{ name }}</span>
         <div class="bottom">
           <el-button text class="button" @click="getProjectInfo"
