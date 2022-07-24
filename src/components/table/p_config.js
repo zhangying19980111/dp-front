@@ -17,7 +17,7 @@ export const ProjectCheck_tableConfig = [
         prop: 'project.leaderTelephone'
     },
     {
-        label: '项目地点',
+        label: '服务地点',
         prop: 'project.projectLocation'
     },
     {
@@ -42,7 +42,7 @@ export const ProjectCheck_tableConfig = [
         prop: 'project.serviceTarget'
     },
     {
-        label: '目前状态',
+        label: '审核状态',
         prop: 'project.status'
     },
     // {
@@ -77,7 +77,7 @@ export const MyProject_tableConfig = [
         prop: 'serviceTarget'
     },
     {
-        label: '项目地点',
+        label: '服务地点',
         prop: 'projectLocation'
     },
     {

@@ -1,8 +1,7 @@
 import requests from '../request'
-export const  getAllProjects = ({status}) => {
-    return requests({url:`/api//teams`, method: 'get', params: {status}})
+export const  getAllProjects = () => {
+    return requests({url:`/api/public/projects`, method: 'get'})
 }
-
 export const  getOneProject = ({id}) => {
-    return requests({url:`/api//teams/${id}`, method: 'get'})
+    return requests({url:`/api/public/project/one`, method: 'get', params:{id}})
 }

@@ -18,6 +18,9 @@
       <el-tab-pane label="我的成员" :name="3">
         <MyVol />
       </el-tab-pane>
+      <el-tab-pane label="申请记录" :name="4">
+        <ApplyList />
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -27,6 +30,7 @@ import VolToProject from "@/views/check/team/VolToProject.vue";
 import VolToTeam from "@/views/check/team/VolToTeam.vue";
 import MyVol from "@/views/center/team/MyVol.vue";
 import MyProject from "@/views/center/team/MyProject.vue";
+import ApplyList from "@/views/center/team/ApplyList.vue";
 import {ref} from 'vue'
 import { useStore } from "vuex";
 import { computed } from "vue";
@@ -37,6 +41,7 @@ export default {
     VolToTeam,
     MyVol,
     MyProject,
+    ApplyList
   },
   setup() {
     let selectedTab = ref(0);

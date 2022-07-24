@@ -2,7 +2,28 @@
   <div>
       <el-form :model="form" label-width="80px" class="select-form">
       <el-row>
-        <el-col :span="8">
+         <el-col :span="8">
+          <el-form-item
+            label="审核状态"
+            prop="status"
+            label-width="100px" 
+            class="select-form-item"
+          >
+           <el-select
+              v-model="form.status"
+              class="m-2"
+              placeholder="请选择..."
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <!-- <el-col :span="8">
           <el-form-item
             label="姓名"
             prop="vname"
@@ -22,7 +43,7 @@
               placeholder="请输入..."
             />
           </el-form-item>
-        </el-col>
+        </el-col> -->
        <el-col :span="8">
           <el-form-item class="select-form-item">
             <el-button type="primary" @click="handleQuery" style="margin-left:10px">搜索</el-button>
@@ -37,20 +58,39 @@
 <script>
 import { reactive } from "vue";
 export default {
-  setup () {
-    const form = reactive({
-      vname:'',
-      vtel:''
-    })
+  props:{
+    form:{
+      default:{
+        vname:'',
+        tel:'',
+        status:''
+      }
+    }
+  },
+  emits:['selectEvent', 'resetEvent'],
+  setup (props, {emit}) {
+    const options = [
+      {
+        label: "待审核",
+        value: "unverified",
+      },
+      {
+        label: "已通过",
+        value: "agreed",
+      },
+      {
+        label: "未通过",
+        value: "disagreed",
+      },
+    ];
     const handleQuery = () => {
-
+      emit('selectEvent')
     }
     const resetQuery = () => {
-      form.vname = ''
-      form.vtel = ''
+      emit('resetEvent')
     }
     return {
-      form,
+      options,
       handleQuery,
       resetQuery
     }

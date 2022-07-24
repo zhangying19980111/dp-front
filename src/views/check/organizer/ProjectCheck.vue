@@ -125,8 +125,8 @@ export default {
     const state = reactive({
       tableData: [],
     });
-    const getData = async () => {
-      const res = await getProData({ uid, status: "unverified" });
+    const getData = async (status) => {
+      const res = await getProData({ uid, status});
       const volToProData = res.data;
       state.tableData = volToProData.map((item) => {
         return {
@@ -147,7 +147,7 @@ export default {
       });
     };
     onMounted(() => {
-      getData();
+      getData( "unverified");
     });
     return {
       form,

@@ -1,12 +1,17 @@
 <template>
   <div>
-    <vol-form />
+    <vol-form
+      @selectEvent="handleSelectEvent"
+      @resetEvent="handleResetEvent"
+      :form="form"
+    />
     <vol-table tableName="志愿者入队审核" :tableData="tableData">
       <template #operate="scope">
         <el-button
           link
           type="success"
           size="small"
+          v-show="scope.row.status === '待审核'"
           @click="handleAction(scope.row.id, 'agree')"
           >通过</el-button
         >
@@ -14,6 +19,7 @@
           link
           type="danger"
           size="small"
+          v-show="scope.row.status === '待审核'"
           @click="handleAction(scope.row.id, 'disagree')"
           >拒绝</el-button
         >
@@ -56,12 +62,17 @@ export default {
     const uid = sessionStorage.getItem("uid");
     const role = sessionStorage.getItem("role");
     const contentVisible = ref(false);
+    const form = reactive({
+      vname: "",
+      vtel: "",
+      status: "unverified",
+    });
     const state = reactive({
       tableData: [],
       dialogData: [],
     });
-    const getData = async () => {
-      const res = await getVolToTeamData({ uid, status: "unverified" });
+    const getData = async (status) => {
+      const res = await getVolToTeamData({ uid, status});
       const volToTeamData = res.data;
       state.tableData = volToTeamData.map((item) => {
         return {
@@ -80,7 +91,7 @@ export default {
       });
     };
     onMounted(() => {
-      getData();
+      getData("unverified" );
     });
     const handleAction = async (id, action) => {
       try {
@@ -90,10 +101,8 @@ export default {
           message: "修改成功",
           type: "success",
         });
-        getData();
-      } catch (e) {
-        console.log(e)
-      }
+        getData(form.status);
+      } catch (e) {}
     };
     const handleContent = async (id) => {
       const res = await getVolToTeamOneData({ id });
@@ -134,12 +143,23 @@ export default {
     const changeContentVisible = (value) => {
       contentVisible.value = value;
     };
+    const handleSelectEvent = () => {
+      getData(form.status);
+    };
+    const handleResetEvent = () => {
+      form.vname = "";
+      form.vtel = "";
+      form.status = "unverified";
+    };
     return {
+      form,
       ...toRefs(state),
       contentVisible,
       handleAction,
       handleContent,
       changeContentVisible,
+      handleSelectEvent,
+      handleResetEvent
     };
   },
 };

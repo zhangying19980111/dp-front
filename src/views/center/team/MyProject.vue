@@ -2,7 +2,7 @@
   <div>
     <el-form :model="form" label-width="80px" class="select-form">
       <el-row>
-        <el-col :span="7">
+        <!-- <el-col :span="7">
           <el-form-item label="项目名称" prop="pname" class="select-form-item">
             <el-input v-model="form.pname" placeholder="请输入..." />
           </el-form-item>
@@ -17,9 +17,9 @@
               style="width: 200px"
             />
           </el-form-item>
-        </el-col>
+        </el-col> -->
         <el-col :span="8">
-          <el-form-item label="审核状态" prop="status" class="select-form-item">
+          <el-form-item label="项目状态" prop="status" class="select-form-item">
             <el-select
               v-model="form.status"
               class="m-2"
@@ -56,15 +56,14 @@
           @click="handleContent(scope.row.id)"
           >详情</el-button
         >
-           <el-button
+        <!-- <el-button
           link
           type="primary"
           size="small"
           @click="handleContent(scope.row.id)"
           >查看我的志愿者</el-button
-        >
+        > -->
       </template>
-      
     </MyProjectTable>
   </div>
   <my-dialog
@@ -73,20 +72,19 @@
     :dialogData="dialogData"
     title="项目信息"
   />
-   <my-dialog
+  <!-- <my-dialog
     :contentVisible="contentVisible"
     @closeDialog="changeContentVisible"
     :dialogData="dialogData"
     title="志愿者列表"
-  />
+  /> -->
 </template>
 <script>
 import ZyTable from "@/components/table/Table.vue";
 import MyProjectTable from "@/components/table/MyProjectTable.vue";
 import { reactive, onMounted, ref, toRefs } from "vue";
 import { statusMap } from "@/utils/statusMap";
-import { getMyProjectData } from "@/api/check/index";
-import { fromByteArray } from "ipaddr.js";
+import { getMyProjectData, getMyProjectOneData } from "@/api/check/index";
 export default {
   components: {
     ZyTable,
@@ -100,21 +98,13 @@ export default {
     const form = reactive({
       pname: "",
       date: "",
-      status: "aggreed",
+      status: "pending",
     });
     const state = reactive({
       tableData: [],
       dialogData: [],
     });
     const options = [
-      {
-        label: "待审核",
-        value: "unverified",
-      },
-      {
-        label: "已通过",
-        value: "aggreed",
-      },
       {
         label: "待启动",
         value: "pending",
@@ -127,78 +117,8 @@ export default {
         label: "已结束",
         value: "finished",
       },
-      {
-        label: "未通过",
-        value: "disagreed",
-      },
     ];
-    const getData = async () => {
-      const res = await getMyProjectData({ role, uid, status: form.status });
-      const myProData = res.data;
-      
-      state.tableData = myProData.map((item) => {
-        return {
-          id: item.id,
-          projectName: item.projectName,
-          serviceArea: item.serviceArea,
-          serviceStartDate: item.serviceStartDate,
-          serviceEndDate: item.serviceEndDate,
-          serviceTarget: item.serviceTarget,
-          status: statusMap.get(item.status),
-          centerName: item.centerName,
-          projectLocation: item.projectLocation,
-          leaderEmail: item.leaderEmail,
-          leaderName: item.leaderName,
-          leaderTelephone: item.leaderTelephone,
-          teamId: item.teamId,
-          teamName: item.teamName,
-        };
-      });
-    };
-    onMounted(() => {
-      getData();
-    });
-    const handleContent = async (id) => {
-      const res = await getVolToProOneData(id);
-      const volToTeamOneData = res.data;
-      state.dialogData = [
-        {
-          label: "姓名",
-          value: volToTeamOneData.volunteer.name,
-        },
-        {
-          label: "性别",
-          value: volToTeamOneData.volunteer.sex,
-        },
-        {
-          label: "出生日期",
-          value: volToTeamOneData.volunteer.birthDate,
-        },
-        {
-          label: "电子邮箱",
-          value: volToTeamOneData.volunteer.email,
-        },
-        {
-          label: "电话号码",
-          value: volToTeamOneData.volunteer.telephone,
-        },
-        {
-          label: "学历",
-          value: volToTeamOneData.volunteer.education,
-        },
-
-        {
-          label: "特长",
-          value: volToTeamOneData.volunteer.specialty,
-        },
-      ];
-      contentVisible.value = true;
-    };
-    const changeContentVisible = (value) => {
-      contentVisible.value = value;
-    };
-    const handleQuery = async () => {
-      const status = form.status;
+    const getData = async (status) => {
       const res = await getMyProjectData({ role, uid, status });
       const myProData = res.data;
       state.tableData = myProData.map((item) => {
@@ -220,10 +140,59 @@ export default {
         };
       });
     };
+    onMounted(() => {
+      getData("pending");
+    });
+    const handleContent = async (id) => {
+      const res = await getMyProjectOneData({ id });
+      const volToTeamOneData = res.data;
+      state.dialogData = [
+        {
+          label: "项目名称",
+          value: volToTeamOneData.projectName,
+        },
+        {
+          label: "服务领域",
+          value: volToTeamOneData.serviceArea,
+        },
+        {
+          label: "服务对象",
+          value: volToTeamOneData.serviceTarget,
+        },
+        {
+          label: "服务地点",
+          value: volToTeamOneData.projectLocation,
+        },
+        {
+          label: "起止日期",
+          value: `${volToTeamOneData.serviceStartDate} 至 ${volToTeamOneData.serviceEndDate}`,
+        },
+        {
+          label: "负责人",
+          value: volToTeamOneData.leaderName,
+        },
+        {
+          label: "负责人电话",
+          value: volToTeamOneData.leaderTelephone,
+        },
+        {
+          label: "负责人邮箱",
+          value: volToTeamOneData.leaderEmail,
+        },
+      ];
+      contentVisible.value = true;
+    };
+    const changeContentVisible = (value) => {
+      contentVisible.value = value;
+    };
+    const handleQuery = async () => {
+      const status = form.status;
+      getData(status);
+    };
     const resetQuery = () => {
       form.pname = "";
       form.date = "";
-      form.status="aggreed"
+      form.status = "pending";
     };
     return {
       ...toRefs(state),
