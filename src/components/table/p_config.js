@@ -1,6 +1,5 @@
 // 项目审核：项目id、队伍id、项目地点、服务领域、服务对象、服务时间段（每周x每天x点到x点）、项目日期、发布日期、招募日期、结束日期、目前状态（招募待启动、招募中、招募已结束、已结项）、审核状态、项目logo、项目联系人、联系人手机号
 export const ProjectCheck_tableConfig = [
-<<<<<<< HEAD
     {
         label: 'id',
         prop: 'project.id',
@@ -21,12 +20,6 @@ export const ProjectCheck_tableConfig = [
         label: '服务地点',
         prop: 'project.projectLocation'
     },
-=======
-    // {
-    //     label: 'id',
-    //     prop: 'project.id',
-    // },
->>>>>>> b0876186c0cc78d6bc041fa87a94c11eaaab1737
     {
         label: '项目名称',
         prop: 'project.projectName'
@@ -40,13 +33,8 @@ export const ProjectCheck_tableConfig = [
         prop: 'project.serviceTarget'
     },
     {
-<<<<<<< HEAD
         label: '审核状态',
         prop: 'project.status'
-=======
-        label: '服务地点',
-        prop: 'project.projectLocation'
->>>>>>> b0876186c0cc78d6bc041fa87a94c11eaaab1737
     },
     // {
     //     label: '队伍ID',
