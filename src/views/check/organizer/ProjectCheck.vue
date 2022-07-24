@@ -71,7 +71,7 @@
         >拒绝
         </el-button
         >
-        <el-button link type="primary" size="small" @click="handleContent"
+        <el-button link type="primary" size="small" @click="handleContent(scope.row.project.id)"
         >详情
         </el-button
         >
@@ -89,7 +89,7 @@
 import ProjectTable from "@/components/table/ProjectTable.vue";
 import {reactive, onMounted, ref, toRefs} from "vue";
 import {statusMap} from "@/utils/statusMap";
-import {getProData, verifyPro, getProOneData} from "@/api/check/index";
+import {getProData, verifyPro, getProOneData,} from "@/api/check/index";
 
 export default {
   components: {
@@ -97,6 +97,7 @@ export default {
   },
   setup() {
     const uid = sessionStorage.getItem("uid");
+    const contentVisible = ref(false);
     const form = reactive({
       pname: "",
       // domain: "",
@@ -117,7 +118,6 @@ export default {
         value: "disagreed",
       },
     ];
-
     const resetQuery = () => {
       form.status= "unverified";
     };
@@ -125,11 +125,12 @@ export default {
       tableData: [],
       dialogData: [],
     });
-    const getData = async () => {
-      const res = await getProData({uid, status: "unverified"});
-      const volToProData = res.data;
-      state.tableData = volToProData.map((item) => {
+    const getData = async (status) => {
+      const res = await getProData({uid, status});
+      const proData = res.data;
+      state.tableData = proData.map((item) => {
         return {
+          // status: statusMap.get(item.status),
           project: {
             id: item.id,
             leaderName: item.leaderName,
@@ -142,36 +143,16 @@ export default {
             serviceStartDate: item.serviceStartDate,
             serviceTarget: item.serviceTarget,
             status: item.status,
-            uidCenter: item.uidCenter
+            // uidCenter: item.uidCenter
           },
         };
       });
     };
-
     const handleQuery = async () => {
-      const res = await getProData({uid, status: form.status});
-      const volToProData = res.data;
-      state.tableData = volToProData.map((item) => {
-        return {
-          project: {
-            id: item.id,
-            leaderName: item.leaderName,
-            leaderEmail: item.leaderEmail,
-            leaderTelephone: item.leaderTelephone,
-            projectLocation: item.projectLocation,
-            projectName: item.projectName,
-            serviceArea: item.serviceArea,
-            serviceEndDate: item.serviceEndDate,
-            serviceStartDate: item.serviceStartDate,
-            serviceTarget: item.serviceTarget,
-            status: item.status,
-            uidCenter: item.uidCenter
-          },
-        };
-      });
+      getData(form.status)
     };
     onMounted(() => {
-      getData();
+      getData("unverified");
     });
     const handleAction = async (projectId, action) => {
       try {
@@ -181,7 +162,7 @@ export default {
           message: "修改成功",
           type: "success",
         });
-        getData();
+        getData("unverified");
       } catch (e) {
         console.log(e)
       }
@@ -189,6 +170,7 @@ export default {
     const handleContent = async (id) => {
       console.log(id)
       const res = await getProOneData({id});
+      console.log(res)
       const proOneData = res.data;
       state.dialogData = [
         {
@@ -197,43 +179,43 @@ export default {
         },
         {
           label: '服务领域',
-          prop: proOneData.serviceArea
+          value: proOneData.serviceArea
         },
         {
           label: '服务对象',
-          prop: proOneData.serviceTarget
+          value: proOneData.serviceTarget
         },
         {
           label: '服务地点',
-          prop: proOneData.projectLocation
+          value: proOneData.projectLocation
         },
         {
             label: '队伍ID',
-            prop: proOneData.teamId
+          value: proOneData.teamId
         },
         {
             label: '队伍名称',
-            prop: proOneData.teamName
+          value: proOneData.teamName
         },
         {
             label: '联系人',
-            prop: proOneData.leaderName
+          value: proOneData.leaderName
         },
         {
             label: '联系人邮箱',
-            prop: proOneData.leaderEmail
+          value: proOneData.leaderEmail
         },
         {
             label: '联系人电话',
-            prop: proOneData.leaderTelephone
+          value: proOneData.leaderTelephone
         },
         {
           label: '开始时间',
-          prop: proOneData.serviceStartDate
+          value: proOneData.serviceStartDate
         },
         {
           label: '结束时间',
-          prop: proOneData.serviceEndDate
+          value: proOneData.serviceEndDate
         },
 
       ];
@@ -254,7 +236,8 @@ export default {
       resetQuery,
       handleAction,
       handleContent,
-      handleShow
+      handleShow,
+      contentVisible,
     };
   },
 };

@@ -89,25 +89,7 @@ export default {
       },
     ];
     const handleQuery = async () => {
-      const res = await getTeamData({uid, status: form.status});
-      const teamData = res.data;
-      state.tableData = teamData.map((item) => {
-        return {
-          team: {
-            id: item.id,
-            leaderName: item.address,
-            leaderEmail: item.area,
-            contact: item.contact,
-            contactTelephone: item.contactTelephone,
-            leader: item.leader,
-            leaderTelephone: item.leaderTelephone,
-            name: item.name,
-            organizer: item.organizer,
-            serveField: item.serveField,
-            status: item.status,
-          },
-        };
-      });
+      getData(form.status)
     };
     const resetQuery = () => {
       // form.tname = "";
@@ -119,11 +101,10 @@ export default {
     })
     const getData = async (status) => {
       const res = await getTeamData({uid, status});
-      const volToProData = res.data;
-      state.tableData = volToProData.map((item) => {
+      const teamData = res.data;
+      state.tableData = teamData.map((item) => {
         return {
-          status: statusMap.get(item.status),
-          // status: item.status,
+          // status: statusMap.get(item.status),
           team: {
             id: item.id,
             leaderName: item.address,
@@ -151,7 +132,7 @@ export default {
           message: "修改成功",
           type: "success",
         });
-        getData();
+        getData("unverified");
       } catch (e) {
         console.log(e)
       }
