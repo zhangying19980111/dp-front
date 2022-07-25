@@ -9,8 +9,8 @@ module.exports = defineConfig({
     port:8088,
     proxy:{
       '/api':{
-        // target:'http://101.43.233.220:5651',
-        target:'http://localhost:5651',
+        target:'http://101.43.233.220:5651',
+        // target:'http://localhost:5651',
         // target:'https://dream.cihss.net',
         pathRewrite:{'^/api':''},   
       }

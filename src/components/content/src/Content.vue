@@ -96,7 +96,7 @@ export default {
     align-items: center;
     border-bottom: 1px solid #c0c4cc;
     border-radius: 2px;
-    width:20%;
+    width:30%;
   }
   .content-button {
     align-self: flex-end;
