@@ -121,7 +121,7 @@ export default {
       dialogData: [],
     });
     const getData = async (status) => {
-      const res = await getTeamData({ uid, status });
+      const res = await getTeamData({ status });
       const teamData = res.data;
       state.tableData = teamData.map((item) => {
         return {

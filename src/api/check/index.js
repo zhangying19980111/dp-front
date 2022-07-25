@@ -53,8 +53,8 @@ export const verifyPro = ({projectId, action}) => {
 export const getProOneData = ({id}) => {
     return requests({url:`/api/public/project/one`, method: 'get', params: {id}})
 }
-export const getTeamData = ({uid, status}) => {
-    return requests({url:`/api/teams`, method: 'get', params: {uid, status}})
+export const getTeamData = ({status}) => {
+    return requests({url:`/api/teams`, method: 'get', params: {status}})
 }
 //审核队伍
 export const verifyTeam = ({id, action}) => {
