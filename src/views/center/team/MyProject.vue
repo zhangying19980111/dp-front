@@ -124,19 +124,19 @@ export default {
       state.tableData = myProData.map((item) => {
         return {
           id: item.id,
-          projectName: item.projectName,
-          serviceArea: item.serviceArea,
-          serviceStartDate: item.serviceStartDate,
-          serviceEndDate: item.serviceEndDate,
-          serviceTarget: item.serviceTarget,
+          projectName: item.projectName?item.projectName:'暂无',
+          serviceArea: item.serviceArea?item.serviceArea:'暂无',
+          serviceStartDate: item.serviceStartDate?item.serviceStartDate:'暂无',
+          serviceEndDate: item.serviceEndDate?item.serviceEndDate:'暂无',
+          serviceTarget: item.serviceTarget?item.serviceTarget:'暂无',
           status: statusMap.get(item.status),
-          centerName: item.centerName,
-          projectLocation: item.projectLocation,
-          leaderEmail: item.leaderEmail,
-          leaderName: item.leaderName,
-          leaderTelephone: item.leaderTelephone,
+          centerName: item.centerName?item.centerName:'暂无',
+          projectLocation: item.projectLocation?item.projectLocation:'暂无',
+          leaderEmail: item.leaderEmail?item.leaderEmail:'暂无',
+          leaderName: item.leaderName?item.leaderName:'暂无',
+          leaderTelephone: item.leaderTelephone?item.leaderTelephone:'暂无',
           teamId: item.teamId,
-          teamName: item.teamName,
+          teamName: item.teamName?item.teamName:'暂无',
         };
       });
     };

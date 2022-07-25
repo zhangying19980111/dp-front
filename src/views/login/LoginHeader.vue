@@ -98,4 +98,14 @@ export default {
   border: none;
   height: 30px;
 }
+.el-menu--horizontal,
+.el-menu-item,
+.el-menu-item.is-active,
+::v-deep .el-menu--horizontal>.el-sub-menu .el-sub-menu__title {
+	border-bottom: none;
+}
+.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
+.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+  background-color: #f4f4f5 !important;
+}
 </style>

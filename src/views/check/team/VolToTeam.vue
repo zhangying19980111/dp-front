@@ -80,12 +80,12 @@ export default {
           status: statusMap.get(item.status),
           volunteer: {
             id: item.volunteer.id,
-            name: item.volunteer.name,
-            education: item.volunteer.education,
-            email: item.volunteer.email,
-            sex: item.volunteer.sex,
-            specialty: item.volunteer.specialty,
-            telephone: item.volunteer.telephone,
+            name: item.volunteer.name?item.volunteer.name:'暂无' ,
+            education: item.volunteer.education?item.volunteer.education:'暂无',
+            email: item.volunteer.email?item.volunteer.email:'暂无',
+            sex: item.volunteer.sex?item.volunteer.sex:'暂无',
+            specialty: item.volunteer.specialty?item.volunteer.specialty:'暂无',
+            telephone: item.volunteer.telephone?item.volunteer.telephone:'暂无',
           },
         };
       });
