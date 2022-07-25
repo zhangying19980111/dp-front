@@ -38,8 +38,26 @@ requests.interceptors.response.use(
         case 50000:
           message = "服务器开小差啦";
           break;
+        case 50001:
+          message = "空指针异常";
+          break;
+        case 50002:
+          message = "未生效";
+          break;
+        case 50003:
+          message = "存在非法参数，请检查输入";
+          break;
         case 50004:
-          message = "网络请求失败";
+          message = "请检查用户名密码";
+          break;
+        case 50005:
+          message = "请求资源不存在";
+          break;
+        case 50006:
+          message = "请不要重复请求";
+          break;
+        case 50007:
+          message = "您的权限不足";
           break;
         default:
           message = res.data.message;
