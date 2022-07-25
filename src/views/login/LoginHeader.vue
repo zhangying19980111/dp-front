@@ -1,11 +1,11 @@
 <template>
   <div class="login-header">
     <div>
-      <div v-if="isShowLogin" style="font-size: small">
-        <span v-if="userEmail"
+      <div v-show="isShowLogin" style="font-size: small">
+        <span v-show="userEmail"
           >{{ userName }}&lt{{ userEmail }}>, 欢迎登录</span
         >
-        <span v-else>{{ userName }}, 欢迎登录</span>
+        <span v-show="!userEmail">{{ userName }}, 欢迎登录</span>
         <el-button text style="color: #409eff" @click="toLogout"
           >退出</el-button
         >
