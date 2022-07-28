@@ -6,12 +6,12 @@
           <img :src="imgSrc" />
         </div>
         <div class="content-word">
-          <div>
+          <div style="width: 100px;">
             <span class="word-label" v-for="item in contentLabel" :key="item"
               >{{ item }}:</span
             >
           </div>
-          <div>
+          <div style="width: 400px;">
             <span class="word-value" v-for="item in contentValue" :key="item">{{
               item
             }}</span>
@@ -75,16 +75,14 @@ export default {
 .content {
   display: flex;
   align-items: center;
-  width: 95%;
   .content-image {
     padding: 20px;
     border: solid #fafafa;
   }
   .content-word {
-    width: 50%;
+    width: 70vw;
     display: flex;
     justify-content: center;
-    align-items: center;
     font-size: medium;
     margin:10px, 10px;
     border-right: 1px solid #c0c4cc;
@@ -96,7 +94,7 @@ export default {
     align-items: center;
     border-bottom: 1px solid #c0c4cc;
     border-radius: 2px;
-    width:30%;
+    width:30vw;
   }
   .content-button {
     align-self: flex-end;

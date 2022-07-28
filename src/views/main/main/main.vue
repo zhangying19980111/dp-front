@@ -1,8 +1,8 @@
 <template>
   <div class="content">
     <el-carousel indicator-position="outside" class="img-content">
-      <el-carousel-item v-for="item in 1" :key="item">
-        <img :src="imgSrc" style="height:100%; width:100% " />
+      <el-carousel-item v-for="item in imgs" :key="item">
+        <img :src="item" style="height:100%; width:100% " />
       </el-carousel-item>
     </el-carousel>
     <Overview class="word-content" tabPath="/notice"/>
@@ -11,16 +11,17 @@
 
 <script>
 import imgSrc from '@/assets/img/img.png'
+import imgSrc2 from '@/assets/img/img2.jpg'
 import Overview from '@/components/news/src/Overview.vue'
 export default {
   component:{
     Overview
   },
   setup() {
-
+    const imgs = [imgSrc, imgSrc2]
 
     return {
-      imgSrc
+      imgs
     }
   }
 }
